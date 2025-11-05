@@ -16,7 +16,8 @@ jobs:
       - name: Install Flutter manually (latest stable)
         run: |
           git clone https://github.com/flutter/flutter.git --branch stable --depth 1
-          echo "$PWD/flutter/bin" >> $GITHUB_PATH
+          export PATH="$PATH:$PWD/flutter/bin"
+          flutter doctor
           flutter --version
 
       - name: Install dependencies
