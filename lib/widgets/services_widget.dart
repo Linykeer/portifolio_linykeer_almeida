@@ -10,21 +10,27 @@ class ServicesWidget extends StatelessWidget {
     final services = [
       {
         'icon': Icons.code,
+        'title': 'Desenvolvimento Mobile',
+        'description':
+            'Criação de aplicativos híbridos com foco em performance, escalabilidade e boa experiência',
+      },
+      {
+        'icon': Icons.code,
         'title': 'Desenvolvimento Web',
         'description':
             'Criação de websites modernos e responsivos com as melhores tecnologias do mercado.',
       },
       {
         'icon': Icons.palette,
-        'title': 'UI/UX Design',
+        'title': 'Prototipações',
         'description':
             'Design de interfaces intuitivas e experiências de usuário memoráveis.',
       },
       {
         'icon': Icons.dns,
-        'title': 'Hospedagem Web',
+        'title': 'Publicações',
         'description':
-            'Configuração e manutenção de servidores para garantir máxima performance.',
+            'Publicação e manutenção de aplicativos em Google Play e App Store.',
       },
     ];
 

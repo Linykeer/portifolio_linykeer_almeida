@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:portifolio_linykeer_almeida/widgets/nav_button.dart';
+import 'package:url_launcher/url_launcher.dart';
 import '../utils/app_colors.dart';
 
 class FooterWidget extends StatelessWidget {
@@ -35,7 +37,14 @@ class FooterWidget extends StatelessWidget {
                         title: 'Sobre',
                         children: [
                           Text(
-                            'Desenvolvedor apaixonado por criar experiências digitais únicas e impactantes.',
+                            'Desenvolvedor Mobile Pleno com experiência sólida no ecossistema Flutter, atuando no '
+                            'desenvolvimento de aplicativos híbridos com foco em performance, escalabilidade e boa experiência '
+                            'do usuário. Possuo vivência em integração de APIs REST, gerenciamento de estado (MobX, Provider, '
+                            'Modular, GetX), consumo e persistência de dados locais (Hive, SQLite), além de publicação e '
+                            'manutenção de apps em Google Play e App Store. '
+                            'Tenho facilidade em trabalhar em equipe, aplicar boas práticas de código e versionamento com Git. '
+                            'Busco sempre aprimorar minhas habilidades e contribuir para a entrega de soluções de impacto, com '
+                            'qualidade e inovação',
                             style: TextStyle(
                               color: AppColors.textMuted,
                               fontSize: 14,
@@ -128,11 +137,29 @@ class _SocialLinks extends StatelessWidget {
   Widget build(BuildContext context) {
     return Wrap(
       children: [
-        _SocialButton(icon: Icons.code, onTap: () {}),
+        _SocialButton(
+          icon: FontAwesomeIcons.linkedin,
+          iconColor: Color(0xFF0077B5),
+          onTap: () async {
+            final Uri uri = Uri.parse(
+              'https://www.linkedin.com/in/linykeeralmeida/',
+            );
+            if (!await launchUrl(uri, mode: LaunchMode.externalApplication)) {
+              throw 'Não foi possível abrir $uri';
+            }
+          },
+        ),
         const SizedBox(width: 10),
-        _SocialButton(icon: Icons.work, onTap: () {}),
-        const SizedBox(width: 10),
-        _SocialButton(icon: Icons.alternate_email, onTap: () {}),
+        _SocialButton(
+          icon: FontAwesomeIcons.github,
+          iconColor: Colors.white,
+          onTap: () async {
+            final Uri uri = Uri.parse('https://github.com/linykeer');
+            if (!await launchUrl(uri, mode: LaunchMode.externalApplication)) {
+              throw 'Não foi possível abrir $uri';
+            }
+          },
+        ),
       ],
     );
   }
@@ -141,33 +168,29 @@ class _SocialLinks extends StatelessWidget {
 class _SocialButton extends StatefulWidget {
   final IconData icon;
   final VoidCallback onTap;
+  final Color iconColor;
 
-  const _SocialButton({required this.icon, required this.onTap});
+  const _SocialButton({
+    required this.icon,
+    required this.onTap,
+    required this.iconColor,
+  });
 
   @override
   State<_SocialButton> createState() => _SocialButtonState();
 }
 
 class _SocialButtonState extends State<_SocialButton> {
-  bool _isHovered = false;
-
   @override
   Widget build(BuildContext context) {
-    return MouseRegion(
-      onEnter: (_) => setState(() => _isHovered = true),
-      onExit: (_) => setState(() => _isHovered = false),
-      child: InkWell(
-        onTap: widget.onTap,
-        child: AnimatedContainer(
-          duration: const Duration(milliseconds: 200),
-          width: 40,
-          height: 40,
-          decoration: BoxDecoration(
-            color: _isHovered ? AppColors.primary : AppColors.surfaceLight,
-            shape: BoxShape.circle,
-          ),
-          child: Icon(widget.icon, size: 20, color: AppColors.textPrimary),
-        ),
+    return InkWell(
+      onTap: widget.onTap,
+      child: AnimatedContainer(
+        duration: const Duration(milliseconds: 200),
+        width: 40,
+        height: 40,
+
+        child: FaIcon(widget.icon, size: 32, color: widget.iconColor),
       ),
     );
   }

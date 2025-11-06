@@ -1,3 +1,6 @@
+import 'package:url_launcher/url_launcher.dart';
+import 'package:web/web.dart' as web;
+
 import 'package:flutter/material.dart';
 import 'package:animate_do/animate_do.dart';
 import '../utils/app_colors.dart';
@@ -11,17 +14,19 @@ class HeroWidget extends StatelessWidget {
 
     return Container(
       color: AppColors.background,
-      padding: const EdgeInsets.symmetric(vertical: 80, horizontal: 32),
+      padding: const EdgeInsets.only(top: 150, left: 32, right: 32),
       child: Align(
         alignment: Alignment.topCenter,
-        child: isMobile ? _buildMobileLayout() : _buildDesktopLayout(),
+        child: isMobile
+            ? _buildMobileLayout(context)
+            : _buildDesktopLayout(context),
       ),
     );
   }
 
-  Widget _buildDesktopLayout() {
+  Widget _buildDesktopLayout(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.only(left: 150),
+      padding: const EdgeInsets.only(left: 32),
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -29,8 +34,8 @@ class HeroWidget extends StatelessWidget {
             child: FadeInLeft(
               duration: const Duration(milliseconds: 800),
               child: Padding(
-                padding: const EdgeInsets.only(top: 100),
-                child: _buildTextContent(),
+                padding: const EdgeInsets.only(top: 60),
+                child: _buildTextContent(context),
               ),
             ),
           ),
@@ -38,7 +43,21 @@ class HeroWidget extends StatelessWidget {
           Expanded(
             child: FadeInRight(
               duration: const Duration(milliseconds: 800),
-              child: _buildImageSection(),
+              child: Image.asset(
+                'assets/image.png',
+                fit: BoxFit.contain,
+                errorBuilder: (context, error, stackTrace) {
+                  return Container(
+                    height: 400,
+                    color: AppColors.surface,
+                    child: const Icon(
+                      Icons.person,
+                      size: 100,
+                      color: AppColors.textMuted,
+                    ),
+                  );
+                },
+              ),
             ),
           ),
         ],
@@ -46,41 +65,54 @@ class HeroWidget extends StatelessWidget {
     );
   }
 
-  Widget _buildMobileLayout() {
+  Widget _buildMobileLayout(BuildContext context) {
     return Column(
       children: [
         FadeInDown(
           duration: const Duration(milliseconds: 800),
-          child: _buildImageSection(),
+          child: Image.asset(
+            'assets/image.png',
+            fit: BoxFit.contain,
+            errorBuilder: (context, error, stackTrace) {
+              return Container(
+                height: 400,
+                color: AppColors.surface,
+                child: const Icon(
+                  Icons.person,
+                  size: 100,
+                  color: AppColors.textMuted,
+                ),
+              );
+            },
+          ),
         ),
         const SizedBox(height: 48),
         FadeInUp(
           duration: const Duration(milliseconds: 800),
-          child: _buildTextContent(),
+          child: _buildTextContent(context),
         ),
       ],
     );
   }
 
-  Widget _buildTextContent() {
+  Widget _buildTextContent(BuildContext context) {
+    final isMobile = MediaQuery.of(context).size.width < 1024;
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         const Text(
-          'Olá,',
+          'Olá, Meu nome é',
           style: TextStyle(color: AppColors.textMuted, fontSize: 16),
         ),
-        const SizedBox(height: 16),
         RichText(
-          text: const TextSpan(
+          text: TextSpan(
             style: TextStyle(
-              fontSize: 48,
+              fontSize: isMobile ? 28 : 42,
               fontWeight: FontWeight.w600,
               color: AppColors.textPrimary,
               height: 1.2,
             ),
             children: [
-              TextSpan(text: 'Meu nome é '),
               TextSpan(
                 text: 'Linykeer Almeida!',
                 style: TextStyle(color: AppColors.primary),
@@ -90,13 +122,12 @@ class HeroWidget extends StatelessWidget {
         ),
         const SizedBox(height: 8),
         const Text(
-          'Sou Desenvolvedor de Software',
+          'Desenvolvedor Mobile Flutter',
           style: TextStyle(fontSize: 24, color: AppColors.textSecondary),
         ),
         const SizedBox(height: 32),
         const Text(
-          'Transformo ideias em experiências digitais incríveis. Especializado em criar '
-          'websites modernos e aplicações web de alta performance.',
+          'Sou apaixonado por criar apps que unem design, desempenho e propósito. Acredito que cada linha de código pode transformar uma boa ideia em uma experiência digital inesquecaível.',
           style: TextStyle(
             color: AppColors.textMuted,
             fontSize: 16,
@@ -104,171 +135,67 @@ class HeroWidget extends StatelessWidget {
           ),
         ),
         const SizedBox(height: 32),
-      ],
-    );
-  }
+        Wrap(
+          alignment: WrapAlignment.start,
+          crossAxisAlignment: WrapCrossAlignment.center,
+          spacing: 16,
+          runSpacing: 16,
+          children: [
+            ElevatedButton.icon(
+              onPressed: () async {
+                final Uri emailUri = Uri(
+                  scheme: 'mailto',
+                  path: 'contato@linykeer.com.br',
+                  queryParameters: {'subject': 'Contato via Portfólio'},
+                );
 
-  Widget _buildImageSection() {
-    return Center(
-      child: Stack(
-        alignment: Alignment.center,
-        children: [
-          Positioned.fill(
-            child: Pulse(
-              duration: const Duration(seconds: 3),
-              infinite: true,
-              child: Container(
-                decoration: BoxDecoration(
-                  gradient: RadialGradient(
-                    colors: [
-                      AppColors.primary.withValues(alpha: 0.3),
-                      AppColors.secondary.withValues(alpha: 0.2),
-                      AppColors.accent.withValues(alpha: 0.2),
-                      Colors.transparent,
-                    ],
-                  ),
+                if (await canLaunchUrl(emailUri)) {
+                  await launchUrl(emailUri);
+                } else {
+                  throw 'Não foi possível abrir o cliente de e-mail';
+                }
+              },
+              icon: Icon(Icons.mail, size: 20),
+              label: Text('Contato'),
+              style: ElevatedButton.styleFrom(
+                backgroundColor: AppColors.primary,
+                foregroundColor: Colors.white,
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 24,
+                  vertical: 16,
+                ),
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(8),
                 ),
               ),
             ),
-          ),
+            OutlinedButton.icon(
+              onPressed: () {
+                const pdfPath = 'assets/curriculo_linykeer_almeida.pdf';
 
-          // Decorative Dots
-          Positioned(
-            top: -40,
-            left: 40,
-            child: _DecorativeDot(
-              size: 48,
-              color: AppColors.primary.withValues(alpha: 0.6),
-            ),
-          ),
-          Positioned(
-            bottom: -40,
-            right: -40,
-            child: _DecorativeDot(
-              size: 64,
-              color: AppColors.secondary.withValues(alpha: 0.5),
-            ),
-          ),
-          Positioned(
-            top: 100,
-            left: -32,
-            child: _DecorativeDot(
-              size: 32,
-              color: AppColors.accent.withValues(alpha: 0.7),
-            ),
-          ),
-
-          Container(
-            constraints: const BoxConstraints(maxWidth: 500),
-            child: Image.asset(
-              'assets/image.jpeg',
-              fit: BoxFit.contain,
-              errorBuilder: (context, error, stackTrace) {
-                return Container(
-                  width: 400,
-                  height: 400,
-                  color: AppColors.surface,
-                  child: const Icon(
-                    Icons.person,
-                    size: 100,
-                    color: AppColors.textMuted,
-                  ),
-                );
+                web.HTMLAnchorElement()
+                  ..href = pdfPath
+                  ..download = 'curriculo_linykeer_almeida.pdf'
+                  ..click();
               },
-            ),
-          ),
-
-          Positioned(
-            top: 120,
-            left: -64,
-            child: _FloatingShape(
-              width: 96,
-              height: 96,
-              rotation: 12,
-              gradient: LinearGradient(
-                colors: [
-                  AppColors.primary.withValues(alpha: 0.2),
-                  Colors.transparent,
-                ],
+              icon: Icon(Icons.download, size: 20),
+              label: Text('Baixar Curriculo'),
+              style: OutlinedButton.styleFrom(
+                foregroundColor: Colors.white,
+                side: const BorderSide(color: AppColors.border),
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 24,
+                  vertical: 16,
+                ),
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(8),
+                ),
               ),
             ),
-          ),
-          Positioned(
-            bottom: 150,
-            right: -48,
-            child: _FloatingShape(
-              width: 128,
-              height: 128,
-              rotation: -12,
-              gradient: LinearGradient(
-                colors: [
-                  AppColors.secondary.withValues(alpha: 0.2),
-                  Colors.transparent,
-                ],
-              ),
-            ),
-          ),
-        ],
-      ),
-    );
-  }
-}
-
-class _DecorativeDot extends StatelessWidget {
-  final double size;
-  final Color color;
-
-  const _DecorativeDot({required this.size, required this.color});
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      width: size,
-      height: size,
-      decoration: BoxDecoration(
-        shape: BoxShape.circle,
-        color: color,
-        boxShadow: [
-          BoxShadow(
-            color: color.withValues(alpha: 0.2),
-            blurRadius: 20,
-            spreadRadius: 5,
-          ),
-        ],
-      ),
-    );
-  }
-}
-
-class _FloatingShape extends StatelessWidget {
-  final double width;
-  final double height;
-  final double rotation;
-  final Gradient gradient;
-
-  const _FloatingShape({
-    required this.width,
-    required this.height,
-    required this.rotation,
-    required this.gradient,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    return Transform.rotate(
-      angle: rotation * 3.14159 / 180,
-      child: Container(
-        width: width,
-        height: height,
-        decoration: BoxDecoration(
-          gradient: gradient,
-          borderRadius: BorderRadius.circular(16),
-          border: Border.all(
-            color: AppColors.primary.withValues(alpha: 0.1),
-            width: 1,
-          ),
+          ],
         ),
-      ),
+        const SizedBox(height: 60),
+      ],
     );
   }
 }

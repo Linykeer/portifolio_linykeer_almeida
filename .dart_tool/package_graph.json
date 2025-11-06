@@ -12,7 +12,8 @@
         "flutter",
         "font_awesome_flutter",
         "google_fonts",
-        "url_launcher"
+        "url_launcher",
+        "web"
       ],
       "devDependencies": [
         "flutter_lints",
@@ -43,6 +44,11 @@
         "test_api",
         "vector_math"
       ]
+    },
+    {
+      "name": "web",
+      "version": "1.1.1",
+      "dependencies": []
     },
     {
       "name": "animate_do",
@@ -348,11 +354,6 @@
         "source_span",
         "string_scanner"
       ]
-    },
-    {
-      "name": "web",
-      "version": "1.1.1",
-      "dependencies": []
     },
     {
       "name": "flutter_web_plugins",

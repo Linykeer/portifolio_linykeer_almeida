@@ -8,7 +8,7 @@ class AboutWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      color: AppColors.surface,
+      color: AppColors.background.withValues(alpha: 0.8),
       padding: const EdgeInsets.symmetric(vertical: 80, horizontal: 16),
       child: SizedBox(
         child: Column(
@@ -35,26 +35,14 @@ class AboutWidget extends StatelessWidget {
                     duration: const Duration(milliseconds: 600),
                     delay: const Duration(milliseconds: 200),
                     child: const Text(
-                      'Sou um desenvolvedor apaixonado por criar soluções digitais inovadoras. '
-                      'Com anos de experiência no desenvolvimento web, tenho ajudado empresas e '
-                      'empreendedores a transformar suas ideias em realidade através de código limpo '
-                      'e design intuitivo.',
-                      textAlign: TextAlign.center,
-                      style: TextStyle(
-                        color: AppColors.textMuted,
-                        fontSize: 16,
-                        height: 1.6,
-                      ),
-                    ),
-                  ),
-                  const SizedBox(height: 32),
-                  FadeInUp(
-                    duration: const Duration(milliseconds: 600),
-                    delay: const Duration(milliseconds: 400),
-                    child: const Text(
-                      'Minha abordagem combina conhecimento técnico profundo com uma compreensão '
-                      'aguçada das necessidades do usuário, resultando em produtos que não apenas '
-                      'funcionam perfeitamente, mas também encantam.',
+                      'Desenvolvedor Mobile Pleno com experiência sólida no ecossistema Flutter, atuando no '
+                      'desenvolvimento de aplicativos híbridos com foco em performance, escalabilidade e boa experiência '
+                      'do usuário. Possuo vivência em integração de APIs REST, gerenciamento de estado (MobX, Provider, '
+                      'Modular, GetX), consumo e persistência de dados locais (Hive, SQLite), além de publicação e '
+                      'manutenção de apps em Google Play e App Store. '
+                      'Tenho facilidade em trabalhar em equipe, aplicar boas práticas de código e versionamento com Git. '
+                      'Busco sempre aprimorar minhas habilidades e contribuir para a entrega de soluções de impacto, com '
+                      'qualidade e inovação',
                       textAlign: TextAlign.center,
                       style: TextStyle(
                         color: AppColors.textMuted,
@@ -66,7 +54,6 @@ class AboutWidget extends StatelessWidget {
                 ],
               ),
             ),
-            const SizedBox(height: 64),
           ],
         ),
       ),

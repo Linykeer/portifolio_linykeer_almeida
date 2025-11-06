@@ -30,7 +30,12 @@ class _HeaderWidgetState extends State<HeaderWidget> {
           mainAxisSize: MainAxisSize.min,
           children: [
             Container(
-              padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
+              padding: const EdgeInsets.only(
+                left: 16,
+                right: 32,
+                top: 16,
+                bottom: 16,
+              ),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
@@ -62,8 +67,6 @@ class _HeaderWidgetState extends State<HeaderWidget> {
                           'Projetos',
                           () => widget.onNavigate('projects'),
                         ),
-                        const SizedBox(width: 32),
-                        NavButton('Meu Curriculo', () {}),
                       ],
                     )
                   else
@@ -84,14 +87,18 @@ class _HeaderWidgetState extends State<HeaderWidget> {
 
             if (isMobile && _isMenuOpen)
               Container(
+                width: double.infinity,
                 decoration: const BoxDecoration(
                   border: Border(
                     top: BorderSide(color: AppColors.surfaceLight, width: 1),
                   ),
                 ),
-                padding: const EdgeInsets.all(16),
+                padding: const EdgeInsets.symmetric(
+                  vertical: 16,
+                  horizontal: 40,
+                ),
                 child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
+                  crossAxisAlignment: CrossAxisAlignment.end,
                   children: [
                     NavButton('Início', () {
                       widget.onNavigate('home');
@@ -110,10 +117,6 @@ class _HeaderWidgetState extends State<HeaderWidget> {
                     const SizedBox(height: 16),
                     NavButton('Projetos', () {
                       widget.onNavigate('projects');
-                      setState(() => _isMenuOpen = false);
-                    }),
-                    const SizedBox(height: 16),
-                    NavButton('Meu Curriculo', () {
                       setState(() => _isMenuOpen = false);
                     }),
                   ],
