@@ -20,7 +20,6 @@ class _HeaderWidgetState extends State<HeaderWidget> {
 
     return Container(
       decoration: BoxDecoration(
-        color: AppColors.background.withValues(alpha: 0.8),
         border: const Border(
           bottom: BorderSide(color: AppColors.surfaceLight, width: 1),
         ),

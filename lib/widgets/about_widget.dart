@@ -8,7 +8,6 @@ class AboutWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      color: AppColors.background.withValues(alpha: 0.8),
       padding: const EdgeInsets.symmetric(vertical: 80, horizontal: 16),
       child: SizedBox(
         child: Column(
@@ -27,7 +26,7 @@ class AboutWidget extends StatelessWidget {
             const SizedBox(height: 48),
             Container(
               constraints: BoxConstraints(
-                maxWidth: MediaQuery.sizeOf(context).width - 60,
+                maxWidth: MediaQuery.sizeOf(context).width / 1.7,
               ),
               child: Column(
                 children: [

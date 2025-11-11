@@ -13,7 +13,6 @@ class HeroWidget extends StatelessWidget {
     final isMobile = MediaQuery.of(context).size.width < 1024;
 
     return Container(
-      color: AppColors.background,
       padding: const EdgeInsets.only(top: 150, left: 32, right: 32),
       child: Align(
         alignment: Alignment.topCenter,
@@ -43,20 +42,9 @@ class HeroWidget extends StatelessWidget {
           Expanded(
             child: FadeInRight(
               duration: const Duration(milliseconds: 800),
-              child: Image.asset(
-                'assets/image.png',
-                fit: BoxFit.contain,
-                errorBuilder: (context, error, stackTrace) {
-                  return Container(
-                    height: 400,
-                    color: AppColors.surface,
-                    child: const Icon(
-                      Icons.person,
-                      size: 100,
-                      color: AppColors.textMuted,
-                    ),
-                  );
-                },
+              child: SizedBox(
+                height: 650,
+                child: Image.asset('assets/image.png', fit: BoxFit.contain),
               ),
             ),
           ),
@@ -70,20 +58,9 @@ class HeroWidget extends StatelessWidget {
       children: [
         FadeInDown(
           duration: const Duration(milliseconds: 800),
-          child: Image.asset(
-            'assets/image.png',
-            fit: BoxFit.contain,
-            errorBuilder: (context, error, stackTrace) {
-              return Container(
-                height: 400,
-                color: AppColors.surface,
-                child: const Icon(
-                  Icons.person,
-                  size: 100,
-                  color: AppColors.textMuted,
-                ),
-              );
-            },
+          child: SizedBox(
+            height: 250,
+            child: Image.asset('assets/image.png', fit: BoxFit.cover),
           ),
         ),
         const SizedBox(height: 48),
@@ -127,7 +104,7 @@ class HeroWidget extends StatelessWidget {
         ),
         const SizedBox(height: 32),
         const Text(
-          'Sou apaixonado por criar apps que unem design, desempenho e propósito. Acredito que cada linha de código pode transformar uma boa ideia em uma experiência digital inesquecaível.',
+          'Sou apaixonado por criar apps que unem design, desempenho e propósito. Acredito que cada linha de código pode transformar uma boa ideia em uma experiência digital inesquecível.',
           style: TextStyle(
             color: AppColors.textMuted,
             fontSize: 16,

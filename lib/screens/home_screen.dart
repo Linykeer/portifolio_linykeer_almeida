@@ -43,113 +43,125 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     final isMobile = MediaQuery.of(context).size.width < 768;
-    return Scaffold(
-      body: Stack(
-        children: [
-          SingleChildScrollView(
-            controller: _scrollController,
-            child: Column(
-              children: [
-                Container(key: homeKey, child: const HeroWidget()),
-                Container(
-                  height: 80,
-                  margin: const EdgeInsets.only(bottom: 20),
-                  width: double.infinity,
-                  color: AppColors.surface,
-                  child: Padding(
-                    padding: EdgeInsets.symmetric(
-                      horizontal: isMobile ? 16 : 60,
-                    ),
-                    child: ScrollConfiguration(
-                      behavior: ScrollConfiguration.of(context).copyWith(
-                        dragDevices: {
-                          PointerDeviceKind.mouse,
-                          PointerDeviceKind.touch,
-                        },
+    return Container(
+      decoration: const BoxDecoration(
+        gradient: LinearGradient(
+          begin: Alignment.topCenter,
+          end: Alignment.bottomCenter,
+          colors: [Color(0xFF242427), Color(0xFF1B1B1E)],
+        ),
+      ),
+      child: Scaffold(
+        backgroundColor: Colors.transparent,
+        body: Stack(
+          children: [
+            SingleChildScrollView(
+              controller: _scrollController,
+              child: Column(
+                children: [
+                  Container(key: homeKey, child: const HeroWidget()),
+                  Container(
+                    height: 80,
+                    margin: const EdgeInsets.only(bottom: 20),
+                    width: double.infinity,
+                    color: AppColors.surface,
+                    child: Padding(
+                      padding: EdgeInsets.symmetric(
+                        horizontal: isMobile ? 16 : 60,
                       ),
-                      child: SingleChildScrollView(
-                        scrollDirection: Axis.horizontal,
-                        child: Row(
-                          children: [
-                            ...[
-                              'Dart',
-                              'Flutter',
-                              'React',
-                              'Typescript',
-                              'Firebase',
-                              'Git',
-                              'Arquitetura MVC',
-                              'Modular',
-                              'MobX',
-                              'GetX',
-                              'Provider',
-                              'Figma',
-                              'Hive/SQLite',
-                              'Publicação Google Play',
-                              'Publicação App Store',
-                            ].map((e) {
-                              return Padding(
-                                padding: EdgeInsets.only(
-                                  right: isMobile ? 32 : 50,
-                                ),
-                                child: Text(
-                                  e,
-                                  style: TextStyle(
-                                    fontSize: isMobile ? 18 : 26,
-                                    color: Colors.white.withValues(alpha: 0.2),
+                      child: ScrollConfiguration(
+                        behavior: ScrollConfiguration.of(context).copyWith(
+                          dragDevices: {
+                            PointerDeviceKind.mouse,
+                            PointerDeviceKind.touch,
+                          },
+                        ),
+                        child: SingleChildScrollView(
+                          scrollDirection: Axis.horizontal,
+                          child: Row(
+                            children: [
+                              ...[
+                                'Dart',
+                                'Flutter',
+                                'React',
+                                'Typescript',
+                                'Firebase',
+                                'Git',
+                                'Arquitetura MVC',
+                                'Modular',
+                                'MobX',
+                                'GetX',
+                                'Provider',
+                                'Figma',
+                                'Hive/SQLite',
+                                'Publicação Google Play',
+                                'Publicação App Store',
+                              ].map((e) {
+                                return Padding(
+                                  padding: EdgeInsets.only(
+                                    right: isMobile ? 32 : 50,
                                   ),
-                                ),
-                              );
-                            }),
-                          ],
+                                  child: Text(
+                                    e,
+                                    style: TextStyle(
+                                      fontSize: isMobile ? 18 : 26,
+                                      color: Colors.white.withValues(
+                                        alpha: 0.2,
+                                      ),
+                                    ),
+                                  ),
+                                );
+                              }),
+                            ],
+                          ),
                         ),
                       ),
                     ),
                   ),
-                ),
-                Container(key: aboutKey, child: const AboutWidget()),
-                Container(key: servicesKey, child: const ServicesWidget()),
-                Container(key: projectsKey, child: const ProjectsWidget()),
-                FooterWidget(
-                  onNavigate: (section) {
-                    switch (section) {
-                      case 'home':
-                        scrollToSection(homeKey);
-                        break;
-                      case 'about':
-                        scrollToSection(aboutKey);
-                        break;
-                      case 'services':
-                        scrollToSection(servicesKey);
-                        break;
-                      case 'projects':
-                        scrollToSection(projectsKey);
-                        break;
-                    }
-                  },
-                ),
-              ],
+                  Container(key: aboutKey, child: const AboutWidget()),
+                  Container(key: servicesKey, child: const ServicesWidget()),
+                  Container(key: projectsKey, child: const ProjectsWidget()),
+                  FooterWidget(
+                    onNavigate: (section) {
+                      switch (section) {
+                        case 'home':
+                          scrollToSection(homeKey);
+                          break;
+                        case 'about':
+                          scrollToSection(aboutKey);
+                          break;
+                        case 'services':
+                          scrollToSection(servicesKey);
+                          break;
+                        case 'projects':
+                          scrollToSection(projectsKey);
+                          break;
+                      }
+                    },
+                  ),
+                ],
+              ),
             ),
-          ),
-          HeaderWidget(
-            onNavigate: (section) {
-              switch (section) {
-                case 'home':
-                  scrollToSection(homeKey);
-                  break;
-                case 'about':
-                  scrollToSection(aboutKey);
-                  break;
-                case 'services':
-                  scrollToSection(servicesKey);
-                  break;
-                case 'projects':
-                  scrollToSection(projectsKey);
-                  break;
-              }
-            },
-          ),
-        ],
+            HeaderWidget(
+              onNavigate: (section) {
+                switch (section) {
+                  case 'home':
+                    scrollToSection(homeKey);
+                    break;
+                  case 'about':
+                    scrollToSection(aboutKey);
+                    break;
+                  case 'services':
+                    scrollToSection(servicesKey);
+                    break;
+                  case 'projects':
+                    scrollToSection(projectsKey);
+                    break;
+                }
+              },
+            ),
+          ],
+        ),
       ),
     );
   }

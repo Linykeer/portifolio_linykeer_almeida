@@ -1,24 +1,40 @@
 import 'package:flutter/material.dart';
 
 class AppColors {
-  // Cores principais
-  static const Color primary = Color.fromARGB(255, 11, 86, 246);
-  static const Color primaryDark = Color.fromARGB(255, 45, 10, 158);
+  // Tons principais
+  static const Color primary = Color(
+    0xFF2F81F7,
+  ); // azul médio moderno (ligeiramente mais vibrante)
+  static const Color primaryDark = Color(0xFF1E60C2); // azul escuro de apoio
 
-  static const Color secondary = Color(0xFFA855F7);
-  static const Color accent = Color(0xFF3B82F6);
+  // Acentos e destaques
+  static const Color accent = Color(
+    0xFF00C6AE,
+  ); // verde-água sofisticado para CTAs
+  static const Color accentHover = Color(0xFF14B8A6);
 
-  // Cores de fundo
-  static const Color background = Color(0xFF020617);
-  static const Color surface = Color(0xFF0F172A);
-  static const Color surfaceLight = Color(0xFF1E293B);
+  // Fundo e superfícies
+  static const Color background = Color(
+    0xFF1B1B1E,
+  ); // **cinza grafite principal**
+  static const Color surface = Color(0xFF242427); // cards / containers
+  static const Color surfaceLight = Color(
+    0xFF2E2E31,
+  ); // elementos flutuantes / appbar
 
-  // Cores de texto
-  static const Color textPrimary = Color(0xFFF8FAFC);
-  static const Color textSecondary = Color(0xFFCBD5E1);
-  static const Color textMuted = Color(0xFF94A3B8);
+  // Texto
+  static const Color textPrimary = Color(
+    0xFFF1F5F9,
+  ); // quase branco, ótimo contraste
+  static const Color textSecondary = Color(0xFFCBD5E1); // cinza leve
+  static const Color textMuted = Color(0xFF94A3B8); // cinza-azulado suave
 
-  // Cores de borda
-  static const Color border = Color(0xFF334155);
-  static const Color borderLight = Color(0xFF475569);
+  // Bordas
+  static const Color border = Color(0xFF3A3A3E);
+  static const Color borderLight = Color(0xFF4B4B50);
+
+  // Estados de feedback
+  static const Color success = Color(0xFF10B981); // verde elegante
+  static const Color warning = Color(0xFFF59E0B); // dourado
+  static const Color error = Color(0xFFEF4444); // vermelho
 }

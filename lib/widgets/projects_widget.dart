@@ -35,7 +35,7 @@ class ProjectsWidget extends StatelessWidget {
     ];
 
     return Container(
-      color: AppColors.surface,
+      color: AppColors.background,
       width: MediaQuery.sizeOf(context).width,
       padding: const EdgeInsets.symmetric(vertical: 80, horizontal: 16),
       child: SizedBox(

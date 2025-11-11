@@ -14,7 +14,6 @@ class FooterWidget extends StatelessWidget {
 
     return Container(
       decoration: const BoxDecoration(
-        color: AppColors.background,
         border: Border(
           top: BorderSide(color: AppColors.surfaceLight, width: 1),
         ),

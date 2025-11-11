@@ -35,7 +35,6 @@ class ServicesWidget extends StatelessWidget {
     ];
 
     return Container(
-      color: AppColors.background,
       padding: const EdgeInsets.symmetric(vertical: 80, horizontal: 16),
       child: SizedBox(
         child: Column(
