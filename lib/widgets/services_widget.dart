@@ -110,6 +110,12 @@ class _ServiceCardState extends State<_ServiceCard> {
         width: widget.width,
         padding: const EdgeInsets.all(32),
         decoration: BoxDecoration(
+          boxShadow: [
+            BoxShadow(
+              offset: Offset(2, 4),
+              color: Colors.black.withValues(alpha: 0.25),
+            ),
+          ],
           color: AppColors.surface,
           borderRadius: BorderRadius.circular(8),
           border: Border.all(

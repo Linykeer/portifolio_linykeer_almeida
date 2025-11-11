@@ -8,30 +8,39 @@ class ProjectsWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final projects = [
-      // {
-      //   'title': 'E-commerce Moderno',
-      //   'description':
-      //       'Plataforma completa de vendas online com carrinho, pagamentos e painel administrativo.',
-      //   'image':
-      //       'https://images.unsplash.com/photo-1603985585179-3d71c35a537c?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHx3ZWIlMjBkZXZlbG9wbWVudCUyMHdvcmtzcGFjZXxlbnwxfHx8fDE3NjIxOTQzNDl8MA&ixlib=rb-4.1.0&q=80&w=1080&utm_source=figma&utm_medium=referral',
-      //   'tags': ['React', 'Node.js', 'MongoDB'],
-      // },
-      // {
-      //   'title': 'App Mobile Delivery',
-      //   'description':
-      //       'Aplicativo de entrega com rastreamento em tempo real e integração com pagamentos.',
-      //   'image':
-      //       'https://images.unsplash.com/photo-1609921212029-bb5a28e60960?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxtb2JpbGUlMjBhcHAlMjBkZXNpZ258ZW58MXx8fHwxNzYyMjc2NzA2fDA&ixlib=rb-4.1.0&q=80&w=1080&utm_source=figma&utm_medium=referral',
-      //   'tags': ['React Native', 'Firebase', 'Maps API'],
-      // },
-      // {
-      //   'title': 'Dashboard Analytics',
-      //   'description':
-      //       'Interface administrativa com gráficos interativos e visualização de dados em tempo real.',
-      //   'image':
-      //       'https://images.unsplash.com/photo-1618761714954-0b8cd0026356?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHx1aSUyMGRlc2lnbiUyMGludGVyZmFjZXxlbnwxfHx8fDE3NjIyMzgxODJ8MA&ixlib=rb-4.1.0&q=80&w=1080&utm_source=figma&utm_medium=referral',
-      //   'tags': ['Vue.js', 'D3.js', 'TypeScript'],
-      // },
+      {
+        'title': 'Epoh Agendamentos',
+        'description': 'Sistema de agendamentos pessoais com notificações',
+        'image': 'assets/epoh/icon.png',
+        'tags': ['Flutter', 'Dart', 'Firebase', 'Provider', 'Arquitetura MVC '],
+      },
+      {
+        'title': 'App Clinic Connect',
+        'description':
+            'Sistema de gerenciamento clinico, para organização de horarios, e agenda de pacientes',
+        'image': 'assets/clinicapp/logo.jpeg',
+        'tags': [
+          'Flutter',
+          'Supabase',
+          'MobX',
+          'Modular',
+          'Clean Architecture',
+        ],
+      },
+      {
+        'title': 'Colab Social',
+        'description': 'Sistema de gestão publica',
+        'image': 'assets/colab-social/icon.png',
+        'tags': [
+          'Flutter',
+          'Dart',
+          'API Rest',
+          'MobX',
+          'Modular',
+          'Hive',
+          'Arquitetura MVC ',
+        ],
+      },
     ];
 
     return Container(
@@ -137,7 +146,6 @@ class _ProjectCardState extends State<_ProjectCard> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            // Image
             ClipRRect(
               borderRadius: const BorderRadius.vertical(
                 top: Radius.circular(8),

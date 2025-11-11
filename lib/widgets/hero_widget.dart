@@ -13,7 +13,7 @@ class HeroWidget extends StatelessWidget {
     final isMobile = MediaQuery.of(context).size.width < 1024;
 
     return Container(
-      padding: const EdgeInsets.only(top: 150, left: 32, right: 32),
+      padding: const EdgeInsets.only(top: 150, left: 32, right: 150),
       child: Align(
         alignment: Alignment.topCenter,
         child: isMobile
@@ -98,17 +98,22 @@ class HeroWidget extends StatelessWidget {
           ),
         ),
         const SizedBox(height: 8),
-        const Text(
+        Text(
           'Desenvolvedor Mobile Flutter',
-          style: TextStyle(fontSize: 24, color: AppColors.textSecondary),
+          style: TextStyle(
+            fontSize: 24,
+            color: AppColors.textSecondary,
+            fontWeight: FontWeight.w500,
+            letterSpacing: 1,
+          ),
         ),
         const SizedBox(height: 32),
         const Text(
           'Sou apaixonado por criar apps que unem design, desempenho e propósito. Acredito que cada linha de código pode transformar uma boa ideia em uma experiência digital inesquecível.',
           style: TextStyle(
             color: AppColors.textMuted,
-            fontSize: 16,
-            height: 1.6,
+            fontSize: 17,
+            letterSpacing: 0.1,
           ),
         ),
         const SizedBox(height: 32),
