@@ -58,6 +58,11 @@ class _HeaderWidgetState extends State<HeaderWidget> {
                         NavButton('Sobre', () => widget.onNavigate('about')),
                         const SizedBox(width: 32),
                         NavButton(
+                          'Habilidades e Conhecimentos',
+                          () => widget.onNavigate('skils'),
+                        ),
+                        const SizedBox(width: 32),
+                        NavButton(
                           'Serviços',
                           () => widget.onNavigate('services'),
                         ),
@@ -65,10 +70,6 @@ class _HeaderWidgetState extends State<HeaderWidget> {
                         NavButton(
                           'Projetos',
                           () => widget.onNavigate('projects'),
-                        ),
-                        NavButton(
-                          'Habilidades e Conhecimentos',
-                          () => widget.onNavigate('skils'),
                         ),
                       ],
                     )
@@ -113,6 +114,11 @@ class _HeaderWidgetState extends State<HeaderWidget> {
                       setState(() => _isMenuOpen = false);
                     }),
                     const SizedBox(height: 16),
+                    NavButton('Habilidades e Conhecimentos', () {
+                      widget.onNavigate('skils');
+                      setState(() => _isMenuOpen = false);
+                    }),
+                    const SizedBox(height: 16),
                     NavButton('Serviços', () {
                       widget.onNavigate('services');
                       setState(() => _isMenuOpen = false);
@@ -120,11 +126,6 @@ class _HeaderWidgetState extends State<HeaderWidget> {
                     const SizedBox(height: 16),
                     NavButton('Projetos', () {
                       widget.onNavigate('projects');
-                      setState(() => _isMenuOpen = false);
-                    }),
-                    const SizedBox(height: 16),
-                    NavButton('Habilidades e Conhecimentos', () {
-                      widget.onNavigate('skils');
                       setState(() => _isMenuOpen = false);
                     }),
                   ],
