@@ -1,8 +1,4 @@
-import 'dart:async';
-import 'dart:ui';
-
 import 'package:flutter/material.dart';
-import 'package:portifolio_linykeer_almeida/utils/app_colors.dart';
 import 'package:portifolio_linykeer_almeida/widgets/carrousel_skils.dart';
 import 'package:portifolio_linykeer_almeida/widgets/skils_widget.dart';
 import '../widgets/header_widget.dart';

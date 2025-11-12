@@ -30,7 +30,7 @@ class ProjectsWidget extends StatelessWidget {
       {
         'title': 'Colab Social',
         'description': 'Sistema de gestão publica',
-        'image': 'assets/colab-social/icon.png',
+        'image': 'assets/colabSocial/icon.png',
         'tags': [
           'Flutter',
           'Dart',

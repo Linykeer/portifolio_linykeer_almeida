@@ -67,8 +67,8 @@ flutter:
   assets:
     - assets/
     - assets/clinicapp/
-    - assets/colab-social/
-    - assets/colab-campo/
+    - assets/colabSocial/
+    - assets/colabCampo/
     - assets/epoh/
   #   - images/a_dot_ham.jpeg
 
