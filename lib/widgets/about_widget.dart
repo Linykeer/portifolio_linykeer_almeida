@@ -7,8 +7,9 @@ class AboutWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final isMobile = MediaQuery.of(context).size.width < 1024;
     return Container(
-      padding: const EdgeInsets.symmetric(vertical: 80, horizontal: 16),
+      padding: const EdgeInsets.only(top: 80, right: 16, left: 16),
       child: SizedBox(
         child: Column(
           children: [
@@ -26,7 +27,8 @@ class AboutWidget extends StatelessWidget {
             const SizedBox(height: 48),
             Container(
               constraints: BoxConstraints(
-                maxWidth: MediaQuery.sizeOf(context).width / 1.7,
+                maxWidth:
+                    MediaQuery.sizeOf(context).width / (isMobile ? 1.2 : 1.7),
               ),
               child: Column(
                 children: [

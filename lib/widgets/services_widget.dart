@@ -33,9 +33,13 @@ class ServicesWidget extends StatelessWidget {
             'Publicação e manutenção de aplicativos em Google Play e App Store.',
       },
     ];
-
+    final isMobile = MediaQuery.of(context).size.width < 1024;
     return Container(
-      padding: const EdgeInsets.symmetric(vertical: 80, horizontal: 16),
+      padding: EdgeInsets.only(
+        top: 80,
+        left: isMobile ? 16 : 64,
+        right: isMobile ? 16 : 64,
+      ),
       child: SizedBox(
         child: Column(
           children: [

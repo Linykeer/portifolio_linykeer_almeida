@@ -13,7 +13,11 @@ class HeroWidget extends StatelessWidget {
     final isMobile = MediaQuery.of(context).size.width < 1024;
 
     return Container(
-      padding: const EdgeInsets.only(top: 150, left: 32, right: 150),
+      padding: EdgeInsets.only(
+        top: 150,
+        left: isMobile ? 32 : 150,
+        right: isMobile ? 32 : 150,
+      ),
       child: Align(
         alignment: Alignment.topCenter,
         child: isMobile
@@ -59,8 +63,8 @@ class HeroWidget extends StatelessWidget {
         FadeInDown(
           duration: const Duration(milliseconds: 800),
           child: SizedBox(
-            height: 250,
-            child: Image.asset('assets/image.png', fit: BoxFit.cover),
+            height: 450,
+            child: Image.asset('assets/image.png', fit: BoxFit.contain),
           ),
         ),
         const SizedBox(height: 48),
@@ -91,7 +95,7 @@ class HeroWidget extends StatelessWidget {
             ),
             children: [
               TextSpan(
-                text: 'Linykeer Almeida!',
+                text: 'Linykeer Almeida',
                 style: TextStyle(color: AppColors.primary),
               ),
             ],
@@ -116,61 +120,67 @@ class HeroWidget extends StatelessWidget {
             letterSpacing: 0.1,
           ),
         ),
-        const SizedBox(height: 32),
+        SizedBox(height: isMobile ? 32 : 250),
         Wrap(
           alignment: WrapAlignment.start,
           crossAxisAlignment: WrapCrossAlignment.center,
           spacing: 16,
           runSpacing: 16,
           children: [
-            ElevatedButton.icon(
-              onPressed: () async {
-                final Uri emailUri = Uri(
-                  scheme: 'mailto',
-                  path: 'contato@linykeer.com.br',
-                  queryParameters: {'subject': 'Contato via Portfólio'},
-                );
+            SizedBox(
+              width: 200,
+              child: ElevatedButton.icon(
+                onPressed: () async {
+                  final Uri emailUri = Uri(
+                    scheme: 'mailto',
+                    path: 'contato@linykeer.com.br',
+                    queryParameters: {'subject': 'Contato via Portfólio'},
+                  );
 
-                if (await canLaunchUrl(emailUri)) {
-                  await launchUrl(emailUri);
-                } else {
-                  throw 'Não foi possível abrir o cliente de e-mail';
-                }
-              },
-              icon: Icon(Icons.mail, size: 20),
-              label: Text('Contato'),
-              style: ElevatedButton.styleFrom(
-                backgroundColor: AppColors.primary,
-                foregroundColor: Colors.white,
-                padding: const EdgeInsets.symmetric(
-                  horizontal: 24,
-                  vertical: 16,
-                ),
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(8),
+                  if (await canLaunchUrl(emailUri)) {
+                    await launchUrl(emailUri);
+                  } else {
+                    throw 'Não foi possível abrir o cliente de e-mail';
+                  }
+                },
+                icon: Icon(Icons.mail, size: 20),
+                label: Text('Contato'),
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: AppColors.primary,
+                  foregroundColor: Colors.white,
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 24,
+                    vertical: 16,
+                  ),
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(8),
+                  ),
                 ),
               ),
             ),
-            OutlinedButton.icon(
-              onPressed: () {
-                const pdfPath = 'assets/curriculo_linykeer_almeida.pdf';
+            SizedBox(
+              width: 200,
+              child: OutlinedButton.icon(
+                onPressed: () {
+                  const pdfPath = 'assets/curriculo_linykeer_almeida.pdf';
 
-                web.HTMLAnchorElement()
-                  ..href = pdfPath
-                  ..download = 'curriculo_linykeer_almeida.pdf'
-                  ..click();
-              },
-              icon: Icon(Icons.download, size: 20),
-              label: Text('Baixar Curriculo'),
-              style: OutlinedButton.styleFrom(
-                foregroundColor: Colors.white,
-                side: const BorderSide(color: AppColors.border),
-                padding: const EdgeInsets.symmetric(
-                  horizontal: 24,
-                  vertical: 16,
-                ),
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(8),
+                  web.HTMLAnchorElement()
+                    ..href = pdfPath
+                    ..download = 'curriculo_linykeer_almeida.pdf'
+                    ..click();
+                },
+                icon: Icon(Icons.download, size: 20),
+                label: Text('Baixar Curriculo'),
+                style: OutlinedButton.styleFrom(
+                  foregroundColor: Colors.white,
+                  side: const BorderSide(color: AppColors.border),
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 24,
+                    vertical: 16,
+                  ),
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(8),
+                  ),
                 ),
               ),
             ),

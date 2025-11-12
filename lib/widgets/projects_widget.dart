@@ -42,11 +42,16 @@ class ProjectsWidget extends StatelessWidget {
         ],
       },
     ];
+    final isMobile = MediaQuery.of(context).size.width < 1024;
 
     return Container(
-      color: AppColors.background,
       width: MediaQuery.sizeOf(context).width,
-      padding: const EdgeInsets.symmetric(vertical: 80, horizontal: 16),
+      padding: EdgeInsets.only(
+        top: 80,
+        bottom: 20,
+        left: isMobile ? 16 : 64,
+        right: isMobile ? 16 : 64,
+      ),
       child: SizedBox(
         child: Column(
           children: [
@@ -133,6 +138,7 @@ class _ProjectCardState extends State<_ProjectCard> {
       child: AnimatedContainer(
         duration: const Duration(milliseconds: 300),
         width: widget.width,
+        constraints: BoxConstraints(minHeight: 400),
         decoration: BoxDecoration(
           color: AppColors.background,
           borderRadius: BorderRadius.circular(8),
@@ -192,7 +198,6 @@ class _ProjectCardState extends State<_ProjectCard> {
               ),
             ),
 
-            // Content
             Padding(
               padding: const EdgeInsets.all(24),
               child: Column(

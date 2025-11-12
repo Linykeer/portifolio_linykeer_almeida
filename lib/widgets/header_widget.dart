@@ -16,7 +16,7 @@ class _HeaderWidgetState extends State<HeaderWidget> {
 
   @override
   Widget build(BuildContext context) {
-    final isMobile = MediaQuery.of(context).size.width < 768;
+    final isMobile = MediaQuery.of(context).size.width < 1024;
 
     return Container(
       decoration: BoxDecoration(
@@ -65,6 +65,10 @@ class _HeaderWidgetState extends State<HeaderWidget> {
                         NavButton(
                           'Projetos',
                           () => widget.onNavigate('projects'),
+                        ),
+                        NavButton(
+                          'Habilidades e Conhecimentos',
+                          () => widget.onNavigate('skils'),
                         ),
                       ],
                     )
@@ -116,6 +120,11 @@ class _HeaderWidgetState extends State<HeaderWidget> {
                     const SizedBox(height: 16),
                     NavButton('Projetos', () {
                       widget.onNavigate('projects');
+                      setState(() => _isMenuOpen = false);
+                    }),
+                    const SizedBox(height: 16),
+                    NavButton('Habilidades e Conhecimentos', () {
+                      widget.onNavigate('skils');
                       setState(() => _isMenuOpen = false);
                     }),
                   ],

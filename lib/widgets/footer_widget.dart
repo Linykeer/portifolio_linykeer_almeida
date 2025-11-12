@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:lucide_icons/lucide_icons.dart';
 import 'package:portifolio_linykeer_almeida/widgets/nav_button.dart';
 import 'package:url_launcher/url_launcher.dart';
 import '../utils/app_colors.dart';
@@ -13,6 +14,7 @@ class FooterWidget extends StatelessWidget {
     final currentYear = DateTime.now().year;
 
     return Container(
+      width: double.infinity,
       decoration: const BoxDecoration(
         border: Border(
           top: BorderSide(color: AppColors.surfaceLight, width: 1),
@@ -65,15 +67,32 @@ class FooterWidget extends StatelessWidget {
                           NavButton('Serviços', () => onNavigate('services')),
                           const SizedBox(width: 32),
                           NavButton('Projetos', () => onNavigate('projects')),
+                          const SizedBox(width: 32),
+                          NavButton(
+                            'Habilidades e Conhecimentos',
+                            () => onNavigate('skils'),
+                          ),
                         ],
                       ),
                     ),
-                    SizedBox(
-                      width: isMobile ? constraints.maxWidth : 200,
-                      child: const _FooterSection(
-                        title: 'Redes Sociais',
-                        children: [_SocialLinks()],
-                      ),
+                    Column(
+                      children: [
+                        SizedBox(
+                          width: isMobile ? constraints.maxWidth : 200,
+                          child: const _FooterSection(
+                            title: 'Redes Sociais',
+                            children: [_SocialLinks(isContact: false)],
+                          ),
+                        ),
+                        const SizedBox(height: 24),
+                        SizedBox(
+                          width: isMobile ? constraints.maxWidth : 200,
+                          child: const _FooterSection(
+                            title: 'Contato',
+                            children: [_SocialLinks(isContact: true)],
+                          ),
+                        ),
+                      ],
                     ),
                   ],
                 );
@@ -81,6 +100,7 @@ class FooterWidget extends StatelessWidget {
             ),
             const SizedBox(height: 32),
             Container(
+              width: double.infinity,
               decoration: const BoxDecoration(
                 border: Border(
                   top: BorderSide(color: AppColors.surfaceLight, width: 1),
@@ -130,35 +150,55 @@ class _FooterSection extends StatelessWidget {
 }
 
 class _SocialLinks extends StatelessWidget {
-  const _SocialLinks();
+  final bool isContact;
+
+  const _SocialLinks({required this.isContact});
 
   @override
   Widget build(BuildContext context) {
     return Wrap(
       children: [
-        _SocialButton(
-          icon: FontAwesomeIcons.linkedin,
-          iconColor: Color(0xFF0077B5),
-          onTap: () async {
-            final Uri uri = Uri.parse(
-              'https://www.linkedin.com/in/linykeeralmeida/',
-            );
-            if (!await launchUrl(uri, mode: LaunchMode.externalApplication)) {
-              throw 'Não foi possível abrir $uri';
-            }
-          },
-        ),
-        const SizedBox(width: 10),
-        _SocialButton(
-          icon: FontAwesomeIcons.github,
-          iconColor: Colors.white,
-          onTap: () async {
-            final Uri uri = Uri.parse('https://github.com/linykeer');
-            if (!await launchUrl(uri, mode: LaunchMode.externalApplication)) {
-              throw 'Não foi possível abrir $uri';
-            }
-          },
-        ),
+        if (!isContact)
+          _SocialButton(
+            icon: FontAwesomeIcons.linkedin,
+            iconColor: Color(0xFF0077B5),
+            onTap: () async {
+              final Uri uri = Uri.parse(
+                'https://www.linkedin.com/in/linykeeralmeida/',
+              );
+              if (!await launchUrl(uri, mode: LaunchMode.externalApplication)) {
+                throw 'Não foi possível abrir $uri';
+              }
+            },
+          ),
+        if (!isContact) const SizedBox(width: 10),
+        if (!isContact)
+          _SocialButton(
+            icon: FontAwesomeIcons.github,
+            iconColor: Colors.white,
+            onTap: () async {
+              final Uri uri = Uri.parse('https://github.com/linykeer');
+              if (!await launchUrl(uri, mode: LaunchMode.externalApplication)) {
+                throw 'Não foi possível abrir $uri';
+              }
+            },
+          ),
+        if (isContact)
+          _SocialButton(
+            icon: LucideIcons.mail,
+            iconColor: Colors.grey,
+            onTap: () async {
+              final Uri uri = Uri(
+                scheme: 'mailto',
+                path: 'contato@linykeer.com.br',
+              );
+              if (await canLaunchUrl(uri)) {
+                await launchUrl(uri);
+              } else {
+                throw 'Não foi possível abrir o cliente de e-mail.';
+              }
+            },
+          ),
       ],
     );
   }
