@@ -30,7 +30,7 @@ class ProjectsWidget extends StatelessWidget {
       {
         'title': 'Colab Social',
         'description': 'Sistema de gestão publica',
-        'image': 'assets/colabSocial/icon.png',
+        'image': 'assets/colab_social/icon.png',
         'tags': [
           'Flutter',
           'Dart',
@@ -164,7 +164,7 @@ class _ProjectCardState extends State<_ProjectCard> {
                     child: SizedBox(
                       height: 192,
                       width: double.infinity,
-                      child: Image.network(
+                      child: Image.asset(
                         widget.image,
                         fit: BoxFit.cover,
                         errorBuilder: (context, error, stackTrace) {
