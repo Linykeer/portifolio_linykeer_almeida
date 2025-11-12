@@ -63020,7 +63020,7 @@ A.de.prototype={
 O(a){var s=null
 return A.Te(!1,!0,A.dI(this.c,B.L6,s),s,!0,s,s,s,s,s,s,this.d,s,s,s)}}
 A.Dt.prototype={
-O(a){var s,r="Arquitetura MVC ",q=null,p=t.s,o=t.N,n=t.K,m=A.c([A.ac(["title","Epoh Agendamentos","description","Sistema de agendamentos pessoais com notifica\xe7\xf5es","image","assets/epoh/icon.png","tags",A.c(["Flutter","Dart","Firebase","Provider",r],p)],o,n),A.ac(["title","App Clinic Connect","description","Sistema de gerenciamento clinico, para organiza\xe7\xe3o de horarios, e agenda de pacientes","image","assets/clinicapp/logo.jpeg","tags",A.c(["Flutter","Supabase","MobX","Modular","Clean Architecture"],p)],o,n),A.ac(["title","Colab Social","description","Sistema de gest\xe3o publica","image","assets/colab-social/icon.png","tags",A.c(["Flutter","Dart","API Rest","MobX","Modular","Hive",r],p)],o,n)],t.Mq)
+O(a){var s,r="Arquitetura MVC ",q=null,p=t.s,o=t.N,n=t.K,m=A.c([A.ac(["title","Epoh Agendamentos","description","Sistema de agendamentos pessoais com notifica\xe7\xf5es","image","assets/epoh/icon.png","tags",A.c(["Flutter","Dart","Firebase","Provider",r],p)],o,n),A.ac(["title","App Clinic Connect","description","Sistema de gerenciamento clinico, para organiza\xe7\xe3o de horarios, e agenda de pacientes","image","assets/clinicapp/logo.jpeg","tags",A.c(["Flutter","Supabase","MobX","Modular","Clean Architecture"],p)],o,n),A.ac(["title","Colab Social","description","Sistema de gest\xe3o publica","image","assets/colabSocial/icon.png","tags",A.c(["Flutter","Dart","API Rest","MobX","Modular","Hive",r],p)],o,n)],t.Mq)
 n=t.w
 s=A.bN(a,q,n).w.a.a<1024
 n=A.bN(a,B.wf,n).w
