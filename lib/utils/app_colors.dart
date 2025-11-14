@@ -5,7 +5,7 @@ class AppColors {
   static const Color primary = Color(
     0xFF2F81F7,
   ); // azul médio moderno (ligeiramente mais vibrante)
-  static const Color primaryDark = Color(0xFF1E60C2); // azul escuro de apoio
+  static const Color primaryDark = Color(0xFF0F172A); // azul escuro de apoio
 
   // Acentos e destaques
   static const Color accent = Color(

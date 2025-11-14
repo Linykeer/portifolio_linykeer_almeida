@@ -1,6 +1,7 @@
-import 'package:flutter/material.dart';
 import 'package:animate_do/animate_do.dart';
+import 'package:flutter/material.dart';
 import 'package:lucide_icons/lucide_icons.dart';
+
 import '../utils/app_colors.dart';
 
 class SkilsWidget extends StatelessWidget {
@@ -50,47 +51,82 @@ class SkilsWidget extends StatelessWidget {
     ];
 
     return Container(
-      padding: EdgeInsets.only(
-        top: 80,
-        left: isMobile ? 16 : 64,
-        right: isMobile ? 16 : 64,
+      width: double.infinity,
+      decoration: BoxDecoration(
+        gradient: LinearGradient(
+          begin: isMobile ? Alignment.bottomRight : Alignment.centerLeft,
+          end: isMobile ? Alignment.topCenter : Alignment.centerRight,
+          colors: [Color(0xFF0F172A), AppColors.background],
+        ),
       ),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.center,
+      child: Stack(
+        alignment: Alignment.topCenter,
         children: [
-          FadeInDown(
-            duration: const Duration(milliseconds: 600),
-            child: const Text(
-              'Habilidades & Conhecimentos',
-              style: TextStyle(
-                fontSize: 36,
-                fontWeight: FontWeight.w600,
-                color: AppColors.textPrimary,
+          Positioned(
+            top: isMobile ? -70 : 30,
+            right: isMobile ? 120 : -80,
+            child: Container(
+              width: 480,
+              height: 480,
+              decoration: BoxDecoration(
+                shape: BoxShape.circle,
+                gradient: RadialGradient(
+                  colors: [
+                    const Color(0xFF3B82F6).withValues(alpha: 0.30),
+                    Colors.transparent,
+                  ],
+                  stops: const [0.0, 1.0],
+                ),
               ),
-              textAlign: TextAlign.center,
             ),
           ),
-          const SizedBox(height: 48),
-          LayoutBuilder(
-            builder: (context, constraints) {
-              return Wrap(
-                spacing: 32,
-                runSpacing: 32,
-                alignment: WrapAlignment.center,
-                children: List.generate(skils.length, (index) {
-                  return FadeInUp(
-                    duration: const Duration(milliseconds: 600),
-                    delay: Duration(milliseconds: 200 + (index * 100)),
-                    child: _SkilsCard(
-                      icon: skils[index]['icon'] as IconData,
-                      title: skils[index]['title'] as String,
-                      list: skils[index]['list'] as List<String>,
-                      width: isMobile ? constraints.maxWidth : 350,
+          Padding(
+            padding: EdgeInsets.only(
+              bottom: 32,
+              left: isMobile ? 16 : 64,
+              right: isMobile ? 16 : 64,
+            ),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                const SizedBox(height: 32),
+                FadeInDown(
+                  duration: const Duration(milliseconds: 600),
+                  child: const Text(
+                    'Habilidades & Conhecimentos',
+                    style: TextStyle(
+                      fontSize: 36,
+                      fontWeight: FontWeight.w600,
+                      color: AppColors.textPrimary,
                     ),
-                  );
-                }),
-              );
-            },
+                    textAlign: TextAlign.center,
+                  ),
+                ),
+                const SizedBox(height: 48),
+
+                LayoutBuilder(
+                  builder: (context, constraints) {
+                    return Wrap(
+                      spacing: 32,
+                      runSpacing: 32,
+                      alignment: WrapAlignment.center,
+                      children: List.generate(skils.length, (index) {
+                        return FadeInUp(
+                          duration: const Duration(milliseconds: 600),
+                          delay: Duration(milliseconds: 200 + (index * 100)),
+                          child: _SkilsCard(
+                            icon: skils[index]['icon'] as IconData,
+                            title: skils[index]['title'] as String,
+                            list: skils[index]['list'] as List<String>,
+                            width: isMobile ? constraints.maxWidth : 350,
+                          ),
+                        );
+                      }),
+                    );
+                  },
+                ),
+              ],
+            ),
           ),
         ],
       ),
@@ -131,7 +167,7 @@ class _SkilsCardState extends State<_SkilsCard> {
         decoration: BoxDecoration(
           boxShadow: [
             BoxShadow(
-              offset: Offset(2, 4),
+              offset: const Offset(2, 4),
               color: Colors.black.withValues(alpha: 0.25),
             ),
           ],
@@ -150,11 +186,11 @@ class _SkilsCardState extends State<_SkilsCard> {
           children: [
             Row(
               children: [
-                Icon(widget.icon, color: Color(0xFF3B82F6), size: 18),
-                SizedBox(width: 8),
+                Icon(widget.icon, color: const Color(0xFF3B82F6), size: 18),
+                const SizedBox(width: 8),
                 Text(
                   widget.title,
-                  style: TextStyle(
+                  style: const TextStyle(
                     color: Colors.white,
                     fontSize: 14,
                     fontWeight: FontWeight.w600,
@@ -162,6 +198,7 @@ class _SkilsCardState extends State<_SkilsCard> {
                 ),
               ],
             ),
+
             const SizedBox(height: 15),
 
             Wrap(

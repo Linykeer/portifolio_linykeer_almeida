@@ -10,9 +10,11 @@
         "animate_do",
         "cupertino_icons",
         "flutter",
+        "flutter_animate",
         "font_awesome_flutter",
         "google_fonts",
         "lucide_icons",
+        "marquee",
         "url_launcher",
         "web"
       ],
@@ -44,6 +46,14 @@
         "stream_channel",
         "test_api",
         "vector_math"
+      ]
+    },
+    {
+      "name": "marquee",
+      "version": "2.3.0",
+      "dependencies": [
+        "fading_edge_scrollview",
+        "flutter"
       ]
     },
     {
@@ -200,6 +210,13 @@
         "stream_channel",
         "string_scanner",
         "term_glyph"
+      ]
+    },
+    {
+      "name": "fading_edge_scrollview",
+      "version": "4.1.1",
+      "dependencies": [
+        "flutter"
       ]
     },
     {
@@ -461,6 +478,22 @@
       "dependencies": [
         "meta",
         "path"
+      ]
+    },
+    {
+      "name": "flutter_animate",
+      "version": "4.5.2",
+      "dependencies": [
+        "flutter",
+        "flutter_shaders"
+      ]
+    },
+    {
+      "name": "flutter_shaders",
+      "version": "0.1.3",
+      "dependencies": [
+        "flutter",
+        "vector_math"
       ]
     }
   ],

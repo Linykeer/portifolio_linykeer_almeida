@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:lucide_icons/lucide_icons.dart';
-import 'package:portifolio_linykeer_almeida/widgets/nav_button.dart';
 import 'package:url_launcher/url_launcher.dart';
+
 import '../utils/app_colors.dart';
+import 'nav_button.dart';
 
 class FooterWidget extends StatelessWidget {
   final Function(String) onNavigate;
@@ -149,16 +150,22 @@ class _FooterSection extends StatelessWidget {
   }
 }
 
-class _SocialLinks extends StatelessWidget {
+class _SocialLinks extends StatefulWidget {
   final bool isContact;
 
   const _SocialLinks({required this.isContact});
 
   @override
+  State<_SocialLinks> createState() => _SocialLinksState();
+}
+
+class _SocialLinksState extends State<_SocialLinks> {
+  bool _isHovered = false;
+  @override
   Widget build(BuildContext context) {
     return Wrap(
       children: [
-        if (!isContact)
+        if (!widget.isContact)
           _SocialButton(
             icon: FontAwesomeIcons.linkedin,
             iconColor: Color(0xFF0077B5),
@@ -171,8 +178,8 @@ class _SocialLinks extends StatelessWidget {
               }
             },
           ),
-        if (!isContact) const SizedBox(width: 10),
-        if (!isContact)
+        if (!widget.isContact) const SizedBox(width: 10),
+        if (!widget.isContact)
           _SocialButton(
             icon: FontAwesomeIcons.github,
             iconColor: Colors.white,
@@ -183,21 +190,34 @@ class _SocialLinks extends StatelessWidget {
               }
             },
           ),
-        if (isContact)
-          _SocialButton(
-            icon: LucideIcons.mail,
-            iconColor: Colors.grey,
-            onTap: () async {
-              final Uri uri = Uri(
-                scheme: 'mailto',
-                path: 'contato@linykeer.com.br',
-              );
-              if (await canLaunchUrl(uri)) {
-                await launchUrl(uri);
-              } else {
-                throw 'Não foi possível abrir o cliente de e-mail.';
-              }
-            },
+        if (widget.isContact)
+          MouseRegion(
+            onEnter: (_) => setState(() => _isHovered = true),
+            onExit: (_) => setState(() => _isHovered = false),
+            cursor: SystemMouseCursors.click,
+            child: GestureDetector(
+              onTap: () async {
+                final Uri uri = Uri(
+                  scheme: 'mailto',
+                  path: 'contato@linykeer.com.br',
+                );
+                if (await canLaunchUrl(uri)) {
+                  await launchUrl(uri);
+                } else {
+                  throw 'Não foi possível abrir o cliente de e-mail.';
+                }
+              },
+              child: AnimatedDefaultTextStyle(
+                duration: const Duration(milliseconds: 200),
+                style: TextStyle(
+                  color: _isHovered ? Colors.blueAccent : Colors.white,
+                  decoration: _isHovered
+                      ? TextDecoration.underline
+                      : TextDecoration.none,
+                ),
+                child: const Text('contato@linykeer.com.br'),
+              ),
+            ),
           ),
       ],
     );

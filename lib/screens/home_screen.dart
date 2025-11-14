@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:portifolio_linykeer_almeida/widgets/carrousel_skils.dart';
-import 'package:portifolio_linykeer_almeida/widgets/skils_widget.dart';
+
+import '../widgets/about_widget.dart';
+import '../widgets/footer_widget.dart';
 import '../widgets/header_widget.dart';
 import '../widgets/hero_widget.dart';
-import '../widgets/about_widget.dart';
-import '../widgets/services_widget.dart';
 import '../widgets/projects_widget.dart';
-import '../widgets/footer_widget.dart';
+import '../widgets/services_widget.dart';
+import '../widgets/skils_widget.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -58,8 +58,8 @@ class _HomeScreenState extends State<HomeScreen> {
               controller: _scrollController,
               child: Column(
                 children: [
-                  Container(key: homeKey, child: const HeroWidget()),
-                  CarrouselSkils(),
+                  Container(key: homeKey, child: const HeroWidgetModern()),
+                  // CarrouselSkils(),
                   Container(key: aboutKey, child: const AboutWidget()),
                   Container(key: skilsKey, child: const SkilsWidget()),
                   Container(key: servicesKey, child: const ServicesWidget()),

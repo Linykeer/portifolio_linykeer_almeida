@@ -45,6 +45,13 @@ class ProjectsWidget extends StatelessWidget {
     final isMobile = MediaQuery.of(context).size.width < 1024;
 
     return Container(
+      decoration: BoxDecoration(
+        gradient: LinearGradient(
+          begin: isMobile ? Alignment.bottomRight : Alignment.centerLeft,
+          end: isMobile ? Alignment.topCenter : Alignment.centerRight,
+          colors: [Color(0xFF0F172A), AppColors.background],
+        ),
+      ),
       width: MediaQuery.sizeOf(context).width,
       padding: EdgeInsets.only(
         top: 80,

@@ -50,6 +50,12 @@
       "languageVersion": "3.1"
     },
     {
+      "name": "fading_edge_scrollview",
+      "rootUri": "file:///Users/colab/.pub-cache/hosted/pub.dev/fading_edge_scrollview-4.1.1",
+      "packageUri": "lib/",
+      "languageVersion": "3.0"
+    },
+    {
       "name": "fake_async",
       "rootUri": "file:///Users/colab/.pub-cache/hosted/pub.dev/fake_async-1.3.3",
       "packageUri": "lib/",
@@ -68,10 +74,22 @@
       "languageVersion": "3.8"
     },
     {
+      "name": "flutter_animate",
+      "rootUri": "file:///Users/colab/.pub-cache/hosted/pub.dev/flutter_animate-4.5.2",
+      "packageUri": "lib/",
+      "languageVersion": "2.17"
+    },
+    {
       "name": "flutter_lints",
       "rootUri": "file:///Users/colab/.pub-cache/hosted/pub.dev/flutter_lints-5.0.0",
       "packageUri": "lib/",
       "languageVersion": "3.5"
+    },
+    {
+      "name": "flutter_shaders",
+      "rootUri": "file:///Users/colab/.pub-cache/hosted/pub.dev/flutter_shaders-0.1.3",
+      "packageUri": "lib/",
+      "languageVersion": "2.19"
     },
     {
       "name": "flutter_test",
@@ -138,6 +156,12 @@
       "rootUri": "file:///Users/colab/.pub-cache/hosted/pub.dev/lucide_icons-0.257.0",
       "packageUri": "lib/",
       "languageVersion": "2.12"
+    },
+    {
+      "name": "marquee",
+      "rootUri": "file:///Users/colab/.pub-cache/hosted/pub.dev/marquee-2.3.0",
+      "packageUri": "lib/",
+      "languageVersion": "3.5"
     },
     {
       "name": "matcher",

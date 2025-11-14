@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:portifolio_linykeer_almeida/utils/app_colors.dart';
+
+import '../utils/app_colors.dart';
 
 class NavButton extends StatelessWidget {
   final String label;

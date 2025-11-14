@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:portifolio_linykeer_almeida/widgets/nav_button.dart';
+
 import '../utils/app_colors.dart';
+import 'nav_button.dart';
 
 class HeaderWidget extends StatefulWidget {
   final Function(String) onNavigate;
@@ -20,6 +21,7 @@ class _HeaderWidgetState extends State<HeaderWidget> {
 
     return Container(
       decoration: BoxDecoration(
+        color: AppColors.background,
         border: const Border(
           bottom: BorderSide(color: AppColors.surfaceLight, width: 1),
         ),
@@ -36,20 +38,8 @@ class _HeaderWidgetState extends State<HeaderWidget> {
                 bottom: 16,
               ),
               child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                mainAxisAlignment: MainAxisAlignment.end,
                 children: [
-                  InkWell(
-                    onTap: () => widget.onNavigate('home'),
-                    child: const Text(
-                      'Linykeer Almeida',
-                      style: TextStyle(
-                        color: AppColors.textPrimary,
-                        fontSize: 18,
-                        fontWeight: FontWeight.w600,
-                      ),
-                    ),
-                  ),
-
                   if (!isMobile)
                     Row(
                       children: [

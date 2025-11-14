@@ -1,5 +1,6 @@
-import 'package:flutter/material.dart';
 import 'package:animate_do/animate_do.dart';
+import 'package:flutter/material.dart';
+
 import '../utils/app_colors.dart';
 
 class ServicesWidget extends StatelessWidget {
@@ -35,6 +36,14 @@ class ServicesWidget extends StatelessWidget {
     ];
     final isMobile = MediaQuery.of(context).size.width < 1024;
     return Container(
+      width: MediaQuery.sizeOf(context).width,
+      decoration: BoxDecoration(
+        gradient: LinearGradient(
+          begin: isMobile ? Alignment.bottomRight : Alignment.centerLeft,
+          end: isMobile ? Alignment.topCenter : Alignment.centerRight,
+          colors: [Color(0xFF0F172A), AppColors.background],
+        ),
+      ),
       padding: EdgeInsets.only(
         top: 80,
         left: isMobile ? 16 : 64,
