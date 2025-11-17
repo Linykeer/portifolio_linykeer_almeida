@@ -47,8 +47,8 @@ class ProjectsWidget extends StatelessWidget {
     return Container(
       decoration: BoxDecoration(
         gradient: LinearGradient(
-          begin: isMobile ? Alignment.bottomRight : Alignment.centerLeft,
-          end: isMobile ? Alignment.topCenter : Alignment.centerRight,
+          begin: isMobile ? Alignment.topLeft : Alignment.centerLeft,
+          end: isMobile ? Alignment.bottomRight : Alignment.centerRight,
           colors: [Color(0xFF0F172A), AppColors.background],
         ),
       ),
@@ -252,28 +252,28 @@ class _ProjectCardState extends State<_ProjectCard> {
                     }).toList(),
                   ),
                   const SizedBox(height: 16),
-                  Row(
-                    children: [
-                      Text(
-                        'Ver Projeto',
-                        style: TextStyle(
-                          fontSize: 14,
-                          color: _isHovered
-                              ? AppColors.primaryDark
-                              : AppColors.primary,
-                          fontWeight: FontWeight.w500,
-                        ),
-                      ),
-                      const SizedBox(width: 4),
-                      Icon(
-                        Icons.arrow_forward,
-                        size: 16,
-                        color: _isHovered
-                            ? AppColors.primaryDark
-                            : AppColors.primary,
-                      ),
-                    ],
-                  ),
+                  // Row(
+                  //   children: [
+                  //     Text(
+                  //       'Ver Projeto',
+                  //       style: TextStyle(
+                  //         fontSize: 14,
+                  //         color: _isHovered
+                  //             ? AppColors.primaryDark
+                  //             : AppColors.primary,
+                  //         fontWeight: FontWeight.w500,
+                  //       ),
+                  //     ),
+                  //     const SizedBox(width: 4),
+                  //     Icon(
+                  //       Icons.arrow_forward,
+                  //       size: 16,
+                  //       color: _isHovered
+                  //           ? AppColors.primaryDark
+                  //           : AppColors.primary,
+                  //     ),
+                  //   ],
+                  // ),
                 ],
               ),
             ),

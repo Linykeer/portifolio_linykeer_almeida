@@ -39,8 +39,8 @@ class ServicesWidget extends StatelessWidget {
       width: MediaQuery.sizeOf(context).width,
       decoration: BoxDecoration(
         gradient: LinearGradient(
-          begin: isMobile ? Alignment.bottomRight : Alignment.centerLeft,
-          end: isMobile ? Alignment.topCenter : Alignment.centerRight,
+          begin: isMobile ? Alignment.topLeft : Alignment.centerLeft,
+          end: isMobile ? Alignment.bottomRight : Alignment.centerRight,
           colors: [Color(0xFF0F172A), AppColors.background],
         ),
       ),

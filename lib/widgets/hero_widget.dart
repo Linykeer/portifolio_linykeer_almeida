@@ -71,7 +71,9 @@ class _HeroWidgetModernState extends State<HeroWidgetModern>
     final paddingHorizontal = isTablet ? 24.0 : 140.0;
 
     return Container(
-      constraints: const BoxConstraints(minHeight: 600),
+      constraints: BoxConstraints(
+        minHeight: MediaQuery.of(context).size.height,
+      ),
       width: double.infinity,
       decoration: const BoxDecoration(
         gradient: RadialGradient(
