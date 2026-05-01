@@ -4,11 +4,26 @@ import 'screens/home_screen.dart';
 import 'utils/app_colors.dart';
 
 void main() {
+  WidgetsFlutterBinding.ensureInitialized();
   runApp(const PortfolioApp());
 }
 
-class PortfolioApp extends StatelessWidget {
+class PortfolioApp extends StatefulWidget {
   const PortfolioApp({super.key});
+
+  @override
+  State<PortfolioApp> createState() => _PortfolioAppState();
+}
+
+class _PortfolioAppState extends State<PortfolioApp> {
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    // Pré-decodifica a imagem de perfil antes do Hero ser renderizado
+    // evitando o travamento (jank) na entrada da página
+    precacheImage(const AssetImage('assets/image.jpeg'), context);
+    precacheImage(const AssetImage('assets/image.jpg'), context);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -19,10 +34,8 @@ class PortfolioApp extends StatelessWidget {
         useMaterial3: true,
         brightness: Brightness.dark,
 
-        // 🎨 Fundo principal (grafite escuro)
         scaffoldBackgroundColor: AppColors.background,
 
-        // 🧱 Paleta principal
         colorScheme: ColorScheme(
           brightness: Brightness.dark,
           primary: AppColors.primary,

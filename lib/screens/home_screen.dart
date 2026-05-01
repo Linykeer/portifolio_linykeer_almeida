@@ -1,12 +1,14 @@
+import 'dart:ui';
+
 import 'package:flutter/material.dart';
 
+import '../utils/app_colors.dart';
 import '../widgets/about_widget.dart';
 import '../widgets/footer_widget.dart';
 import '../widgets/header_widget.dart';
 import '../widgets/hero_widget.dart';
 import '../widgets/projects_widget.dart';
-import '../widgets/services_widget.dart';
-import '../widgets/skils_widget.dart';
+import '../widgets/skills_widget.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -19,15 +21,27 @@ class _HomeScreenState extends State<HomeScreen> {
   final ScrollController _scrollController = ScrollController();
   final GlobalKey homeKey = GlobalKey();
   final GlobalKey aboutKey = GlobalKey();
-  final GlobalKey servicesKey = GlobalKey();
-  final GlobalKey skilsKey = GlobalKey();
+  final GlobalKey skillsKey = GlobalKey();
   final GlobalKey projectsKey = GlobalKey();
+  final GlobalKey footerKey = GlobalKey();
+  bool _isInitialized = false;
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    if (!_isInitialized) {
+      // Pre-cache main images to avoid pop-in/lag
+      precacheImage(const AssetImage('assets/image.jpeg'), context);
+      precacheImage(const AssetImage('assets/image.jpg'), context);
+      _isInitialized = true;
+    }
+  }
 
   void scrollToSection(GlobalKey key) {
-    final context = key.currentContext;
-    if (context != null) {
+    final ctx = key.currentContext;
+    if (ctx != null) {
       Scrollable.ensureVisible(
-        context,
+        ctx,
         duration: const Duration(milliseconds: 500),
         curve: Curves.easeInOut,
       );
@@ -42,76 +56,103 @@ class _HomeScreenState extends State<HomeScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      decoration: const BoxDecoration(
-        gradient: LinearGradient(
-          begin: Alignment.topLeft,
-          end: Alignment.bottomRight,
-          colors: [Color(0xFF1A1A1D), Color(0xFF121214)],
-        ),
-      ),
-      child: Scaffold(
-        backgroundColor: Colors.transparent,
-        body: Stack(
-          children: [
-            SingleChildScrollView(
-              controller: _scrollController,
-              child: Column(
-                children: [
-                  Container(key: homeKey, child: const HeroWidgetModern()),
-                  // CarrouselSkils(),
-                  Container(key: aboutKey, child: const AboutWidget()),
-                  Container(key: skilsKey, child: const SkilsWidget()),
-                  Container(key: servicesKey, child: const ServicesWidget()),
-                  Container(key: projectsKey, child: const ProjectsWidget()),
-                  FooterWidget(
-                    onNavigate: (section) {
-                      switch (section) {
-                        case 'home':
-                          scrollToSection(homeKey);
-                          break;
-                        case 'about':
-                          scrollToSection(aboutKey);
-                          break;
-                        case 'services':
-                          scrollToSection(servicesKey);
-                          break;
-                        case 'projects':
-                          scrollToSection(projectsKey);
-                          break;
-                        case 'skils':
-                          scrollToSection(skilsKey);
-                          break;
-                      }
-                    },
+    return Scaffold(
+      backgroundColor: AppColors.background,
+      body: Stack(
+        children: [
+          Positioned.fill(
+            child:  RepaintBoundary(
+              child: CustomPaint(painter: _DotGridPainter()),
+            ),
+          ),
+
+          SingleChildScrollView(
+            controller: _scrollController,
+            child: Column(
+              children: [
+                RepaintBoundary(
+                  child: Container(
+                    key: homeKey,
+                    child: HeroWidgetModern(
+                      callback: () => scrollToSection(projectsKey),
+                    ),
                   ),
-                ],
-              ),
+                ),
+                RepaintBoundary(
+                  child: Container(key: aboutKey, child: const AboutWidget()),
+                ),
+                RepaintBoundary(
+                  child: Container(key: projectsKey, child: const ProjectsWidget()),
+                ),
+                RepaintBoundary(
+                  child: Container(key: skillsKey, child: const SkillsWidget()),
+                ),
+                RepaintBoundary(
+                  child: Container(
+                    key: footerKey,
+                    child: FooterWidget(
+                      onNavigate: (section) => _navigate(section),
+                    ),
+                  ),
+                ),
+              ],
             ),
-            HeaderWidget(
-              onNavigate: (section) {
-                switch (section) {
-                  case 'home':
-                    scrollToSection(homeKey);
-                    break;
-                  case 'about':
-                    scrollToSection(aboutKey);
-                    break;
-                  case 'services':
-                    scrollToSection(servicesKey);
-                    break;
-                  case 'projects':
-                    scrollToSection(projectsKey);
-                    break;
-                  case 'skils':
-                    scrollToSection(skilsKey);
-                    break;
-                }
-              },
+          ),
+
+          Positioned(
+            top: 0,
+            left: 0,
+            right: 0,
+            child: HeaderWidget(
+              onNavigate: (section) => _navigate(section),
             ),
-          ],
-        ),
+          ),
+        ],
       ),
     );
   }
+
+  void _navigate(String section) {
+    switch (section) {
+      case 'home':
+        scrollToSection(homeKey);
+        break;
+      case 'about':
+        scrollToSection(aboutKey);
+        break;
+      case 'projects':
+        scrollToSection(projectsKey);
+        break;
+      case 'skills':
+        scrollToSection(skillsKey);
+        break;
+      case 'footer':
+        scrollToSection(footerKey);
+        break;
+    }
+  }
+}
+
+class _DotGridPainter extends CustomPainter {
+  @override
+  void paint(Canvas canvas, Size size) {
+    final paint = Paint()
+      ..color = Colors.white.withValues(alpha: 0.025)
+      ..strokeWidth = 1.6
+      ..strokeCap = StrokeCap.round;
+
+    const double spacing = 28.0;
+    final points = <Offset>[];
+
+    for (double x = 0; x < size.width; x += spacing) {
+      for (double y = 0; y < size.height * 0.65; y += spacing) {
+        points.add(Offset(x, y));
+      }
+    }
+
+    canvas.drawPoints(PointMode.points, points, paint);
+  }
+
+  @override
+  bool shouldRepaint(covariant CustomPainter oldDelegate) => false;
 }
