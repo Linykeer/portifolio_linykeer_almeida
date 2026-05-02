@@ -8,7 +8,7 @@ class AboutWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final isMobile = MediaQuery.of(context).size.width < 1024;
-    final paddingHorizontal = isMobile ? 24.0 : 120.0;
+    final paddingHorizontal = isMobile ? 16.0 : 120.0;
 
     return Container(
       width: double.infinity,
@@ -23,7 +23,7 @@ class AboutWidget extends StatelessWidget {
           const Text(
             'Quem é Linykeer?',
             style: TextStyle(
-              fontSize: 36,
+              fontSize: 28,
               fontWeight: FontWeight.w700,
               color: Colors.white,
             ),
@@ -123,8 +123,7 @@ class AboutWidget extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text("  name: 'Linykeer',", style: TextStyle(fontFamily: 'monospace', color: Color(0xFF93C5FD), fontSize: 12)),
-                      Text("  foco: 'Mobile',", style: TextStyle(fontFamily: 'monospace', color: Color(0xFF34D399), fontSize: 12)),
-                      Text("  paixao: true", style: TextStyle(fontFamily: 'monospace', color: Color(0xFFF472B6), fontSize: 12)),
+                      Text("  focus: 'Mobile',", style: TextStyle(fontFamily: 'monospace', color: Color(0xFF34D399), fontSize: 12)),
                     ],
                   ),
                 ),
@@ -229,18 +228,16 @@ class AboutWidget extends StatelessWidget {
     required String description,
     required BuildContext context
   }) {
-        final isMobile = MediaQuery.of(context).size.width < 1024;
+    final isMobile = MediaQuery.of(context).size.width < 1024;
     return ConstrainedBox(
-      constraints: BoxConstraints(minHeight: isMobile ? 200 : 150),
-    
+      constraints: BoxConstraints(minHeight: isMobile ? 280 : 180),
       child: Container(
-    padding: const EdgeInsets.all(20),
-    
-          decoration: BoxDecoration(
-        color: AppColors.surface,
-        borderRadius: BorderRadius.circular(12),
-        border: Border.all(color: Colors.white.withValues(alpha: 0.05)),
-      ),
+        padding: const EdgeInsets.all(20),
+        decoration: BoxDecoration(
+          color: AppColors.surface,
+          borderRadius: BorderRadius.circular(12),
+          border: Border.all(color: Colors.white.withValues(alpha: 0.05)),
+        ),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [

@@ -30,7 +30,7 @@ class ExperienceWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final isMobile = MediaQuery.of(context).size.width < 1024;
-    final paddingHorizontal = isMobile ? 24.0 : 120.0;
+    final paddingHorizontal = isMobile ? 16.0 : 120.0;
 
     return Container(
       width: double.infinity,
@@ -79,15 +79,6 @@ class ExperienceWidget extends StatelessWidget {
             fontWeight: FontWeight.w700,
             color: Colors.white,
             letterSpacing: -0.5,
-          ),
-        ),
-        const SizedBox(height: 16),
-        Text(
-          'Minha jornada no mundo do desenvolvimento — clique em cada card para ver os detalhes.',
-          style: TextStyle(
-            fontSize: 15,
-            color: Colors.white.withValues(alpha: 0.7),
-            height: 1.5,
           ),
         ),
       ],

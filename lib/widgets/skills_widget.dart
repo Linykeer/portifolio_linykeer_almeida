@@ -16,7 +16,7 @@ class _SkillsWidgetState extends State<SkillsWidget> {
   @override
   Widget build(BuildContext context) {
     final isMobile = MediaQuery.of(context).size.width < 1024;
-    final paddingHorizontal = isMobile ? 24.0 : 120.0;
+    final paddingHorizontal = isMobile ? 16.0 : 120.0;
 
     return VisibilityDetector(
       key: const Key('skills-section'),

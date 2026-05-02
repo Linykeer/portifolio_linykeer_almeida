@@ -11,7 +11,7 @@ class FooterWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     final currentYear = DateTime.now().year;
     final isMobile = MediaQuery.of(context).size.width < 1024;
-    final paddingHorizontal = isMobile ? 24.0 : 120.0;
+    final paddingHorizontal = isMobile ? 16.0 : 120.0;
 
     return Container(
       width: double.infinity,

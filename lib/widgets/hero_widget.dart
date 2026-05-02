@@ -10,7 +10,7 @@ class HeroWidgetModern extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final isTablet = MediaQuery.of(context).size.width < 1024;
-    final paddingHorizontal = isTablet ? 24.0 : 140.0;
+    final paddingHorizontal = isTablet ? 16.0 : 140.0;
 
     return Container(
       constraints: isTablet
@@ -61,10 +61,10 @@ class HeroWidgetModern extends StatelessWidget {
 
           Padding(
             padding: EdgeInsets.only(
-              top: 80,
+              top: isTablet ? 40: 80,
               left: paddingHorizontal,
               right: paddingHorizontal,
-              bottom: 40,
+              bottom:isTablet ? 20: 40,
             ),
             child: Align(
               alignment: Alignment.topCenter,
@@ -110,12 +110,12 @@ class HeroWidgetModern extends StatelessWidget {
         ),
         const SizedBox(height: 24),
         SizedBox(
-          height: 320,
-          child: _buildProfileVisual(context, 300.0),
+          height: 360,
+          child: _buildProfileVisual(context, 340.0),
         ),
         const SizedBox(height: 24),
         Padding(
-          padding: const EdgeInsets.only(bottom: 40),
+          padding: const EdgeInsets.only(bottom: 32),
           child: _ButtonsContact(callback: callback).animate().fadeIn(delay: 600.ms).slideY(begin: 0.1, end: 0, duration: 500.ms),
         ),
       ],
@@ -394,11 +394,12 @@ class _ButtonsContact extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final isMobile = MediaQuery.of(context).size.width < 1024;
     return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
+      crossAxisAlignment: isMobile ? CrossAxisAlignment.center : CrossAxisAlignment.start,
       children: [
         Wrap(
-          alignment: WrapAlignment.start,
+          alignment: isMobile ? WrapAlignment.center : WrapAlignment.start,
           crossAxisAlignment: WrapCrossAlignment.center,
           spacing: 16,
           runSpacing: 16,
@@ -442,6 +443,7 @@ class _ButtonsContact extends StatelessWidget {
         const SizedBox(height: 24),
         Row(
           mainAxisSize: MainAxisSize.min,
+          mainAxisAlignment: isMobile ? MainAxisAlignment.center : MainAxisAlignment.start,
           children: [
             _buildSocialIcon(FontAwesomeIcons.github, 'https://github.com/linykeer'),
             const SizedBox(width: 12),

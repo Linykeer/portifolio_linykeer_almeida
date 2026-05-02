@@ -303,7 +303,7 @@ class _ProjectsWidgetState extends State<ProjectsWidget> {
   @override
   Widget build(BuildContext context) {
     final isMobile = MediaQuery.of(context).size.width < 1024;
-    final paddingHorizontal = isMobile ? 24.0 : 120.0;
+    final paddingHorizontal = isMobile ? 16.0 : 120.0;
 
     final filteredProjects = selectedFilter == 'Todos'
         ? portfolioProjects
@@ -902,67 +902,92 @@ class _ProjectDetailDialogState extends State<_ProjectDetailDialog> {
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            Row(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Expanded(
-                                  child: Column(
+                            Builder(
+                              builder: (context) {
+                                final isMobile = MediaQuery.of(context).size.width < 700;
+                                final titleSection = Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Wrap(
+                                      spacing: 12,
+                                      runSpacing: 8,
+                                      crossAxisAlignment: WrapCrossAlignment.center,
+                                      children: [
+                                        Container(
+                                          padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 2),
+                                          decoration: BoxDecoration(
+                                            color: currentProject.color.withValues(alpha: 0.2),
+                                            border: Border.all(color: currentProject.color.withValues(alpha: 0.4)),
+                                            borderRadius: BorderRadius.circular(6),
+                                          ),
+                                          child: Text(currentProject.category, style: TextStyle(color: currentProject.color, fontSize: 12)),
+                                        ),
+                                        Text('· ${currentProject.year}', style: const TextStyle(color: Colors.white30, fontSize: 12)),
+                                        Text('· ${currentProject.duration}', style: const TextStyle(color: Colors.white30, fontSize: 12)),
+                                        Text('· ${currentProject.role}', style: const TextStyle(color: Colors.white30, fontSize: 12)),
+                                      ],
+                                    ),
+                                    const SizedBox(height: 16),
+                                    Text(
+                                      currentProject.title,
+                                      style: const TextStyle(fontSize: 32, fontWeight: FontWeight.bold, color: Colors.white),
+                                    ),
+                                  ],
+                                );
+
+                                final actionButtons = currentProject.github.isNotEmpty || currentProject.live.isNotEmpty
+                                    ? Wrap(
+                                        spacing: 12,
+                                        runSpacing: 12,
+                                        children: [
+                                          if (currentProject.github.isNotEmpty)
+                                            OutlinedButton.icon(
+                                              onPressed: () => launchUrl(Uri.parse(currentProject.github)),
+                                              icon: const Icon(Icons.code, size: 16),
+                                              label: const Text('GitHub'),
+                                              style: OutlinedButton.styleFrom(
+                                                foregroundColor: Colors.white60,
+                                                side: BorderSide(color: Colors.white.withValues(alpha: 0.1)),
+                                              ),
+                                            ),
+                                          if (currentProject.live.isNotEmpty)
+                                            ElevatedButton.icon(
+                                              onPressed: () => launchUrl(Uri.parse(currentProject.live)),
+                                              icon: const Icon(Icons.open_in_new, size: 16),
+                                              label: const Text('Ver ao vivo'),
+                                              style: ElevatedButton.styleFrom(
+                                                backgroundColor: currentProject.color,
+                                                foregroundColor: Colors.white,
+                                              ),
+                                            ),
+                                        ],
+                                      )
+                                    : const SizedBox.shrink();
+
+                                if (isMobile) {
+                                  return Column(
                                     crossAxisAlignment: CrossAxisAlignment.start,
                                     children: [
-                                      Wrap(
-                                        spacing: 12,
-                                        runSpacing: 8,
-                                        crossAxisAlignment: WrapCrossAlignment.center,
-                                        children: [
-                                          Container(
-                                            padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 2),
-                                            decoration: BoxDecoration(
-                                              color: currentProject.color.withValues(alpha: 0.2),
-                                              border: Border.all(color: currentProject.color.withValues(alpha: 0.4)),
-                                              borderRadius: BorderRadius.circular(6),
-                                            ),
-                                            child: Text(currentProject.category, style: TextStyle(color: currentProject.color, fontSize: 12)),
-                                          ),
-                                          Text('· ${currentProject.year}', style: const TextStyle(color: Colors.white30, fontSize: 12)),
-                                          Text('· ${currentProject.duration}', style: const TextStyle(color: Colors.white30, fontSize: 12)),
-                                          Text('· ${currentProject.role}', style: const TextStyle(color: Colors.white30, fontSize: 12)),
-                                        ],
-                                      ),
-                                      const SizedBox(height: 16),
-                                      Text(
-                                        currentProject.title,
-                                        style: const TextStyle(fontSize: 32, fontWeight: FontWeight.bold, color: Colors.white),
-                                      ),
+                                      titleSection,
+                                      if (currentProject.github.isNotEmpty || currentProject.live.isNotEmpty) ...[
+                                        const SizedBox(height: 24),
+                                        actionButtons,
+                                      ],
                                     ],
-                                  ),
-                                ),
-                                if (currentProject.github.isNotEmpty || currentProject.live.isNotEmpty)
-                                  Row(
-                                    children: [
-                                      if (currentProject.github.isNotEmpty)
-                                        OutlinedButton.icon(
-                                          onPressed: () => launchUrl(Uri.parse(currentProject.github)),
-                                          icon: const Icon(Icons.code, size: 16),
-                                          label: const Text('GitHub'),
-                                          style: OutlinedButton.styleFrom(
-                                            foregroundColor: Colors.white60,
-                                            side: BorderSide(color: Colors.white.withValues(alpha: 0.1)),
-                                          ),
-                                        ),
-                                      const SizedBox(width: 12),
-                                      if (currentProject.live.isNotEmpty)
-                                        ElevatedButton.icon(
-                                          onPressed: () => launchUrl(Uri.parse(currentProject.live)),
-                                          icon: const Icon(Icons.open_in_new, size: 16),
-                                          label: const Text('Ver ao vivo'),
-                                          style: ElevatedButton.styleFrom(
-                                            backgroundColor: currentProject.color,
-                                            foregroundColor: Colors.white,
-                                          ),
-                                        ),
+                                  );
+                                }
+
+                                return Row(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Expanded(child: titleSection),
+                                    if (currentProject.github.isNotEmpty || currentProject.live.isNotEmpty) ...[
+                                      const SizedBox(width: 24),
+                                      actionButtons,
                                     ],
-                                  ),
-                              ],
+                                  ],
+                                );
+                              },
                             ),
 
                             const SizedBox(height: 24),
@@ -999,79 +1024,95 @@ class _ProjectDetailDialogState extends State<_ProjectDetailDialog> {
 
                             const SizedBox(height: 40),
 
-                            Row(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Expanded(
-                                  child: Container(
-                                    padding: const EdgeInsets.all(24),
-                                    decoration: BoxDecoration(
-                                      color: Colors.white.withValues(alpha: 0.02),
-                                      border: Border.all(color: Colors.white.withValues(alpha: 0.06)),
-                                      borderRadius: BorderRadius.circular(16),
-                                    ),
-                                    child: Column(
-                                      crossAxisAlignment: CrossAxisAlignment.start,
-                                      children: [
-                                        Row(
+                            Builder(
+                              builder: (context) {
+                                final isMobile = MediaQuery.of(context).size.width < 700;
+                                final featuresContainer = Container(
+                                  padding: const EdgeInsets.all(24),
+                                  decoration: BoxDecoration(
+                                    color: Colors.white.withValues(alpha: 0.02),
+                                    border: Border.all(color: Colors.white.withValues(alpha: 0.06)),
+                                    borderRadius: BorderRadius.circular(16),
+                                  ),
+                                  child: Column(
+                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                    children: [
+                                      Row(
+                                        children: [
+                                          Icon(Icons.check_circle_outline, color: currentProject.color, size: 20),
+                                          const SizedBox(width: 8),
+                                          const Text('Funcionalidades', style: TextStyle(color: Colors.white, fontSize: 16, fontWeight: FontWeight.w600)),
+                                        ],
+                                      ),
+                                      const SizedBox(height: 16),
+                                      ...currentProject.features.map((f) => Padding(
+                                        padding: const EdgeInsets.only(bottom: 12),
+                                        child: Row(
+                                          crossAxisAlignment: CrossAxisAlignment.start,
                                           children: [
-                                            Icon(Icons.check_circle_outline, color: currentProject.color, size: 20),
-                                            const SizedBox(width: 8),
-                                            const Text('Funcionalidades', style: TextStyle(color: Colors.white, fontSize: 16, fontWeight: FontWeight.w600)),
+                                            Container(margin: const EdgeInsets.only(top: 6), width: 6, height: 6, decoration: BoxDecoration(color: currentProject.color, shape: BoxShape.circle)),
+                                            const SizedBox(width: 12),
+                                            Expanded(child: Text(f, style: const TextStyle(color: Colors.white54, fontSize: 14))),
                                           ],
                                         ),
-                                        const SizedBox(height: 16),
-                                        ...currentProject.features.map((f) => Padding(
-                                          padding: const EdgeInsets.only(bottom: 12),
-                                          child: Row(
-                                            crossAxisAlignment: CrossAxisAlignment.start,
-                                            children: [
-                                              Container(margin: const EdgeInsets.only(top: 6), width: 6, height: 6, decoration: BoxDecoration(color: currentProject.color, shape: BoxShape.circle)),
-                                              const SizedBox(width: 12),
-                                              Expanded(child: Text(f, style: const TextStyle(color: Colors.white54, fontSize: 14))),
-                                            ],
-                                          ),
-                                        )),
-                                      ],
-                                    ),
+                                      )),
+                                    ],
                                   ),
-                                ),
-                                const SizedBox(width: 24),
-                                Expanded(
-                                  child: Container(
-                                    padding: const EdgeInsets.all(24),
-                                    decoration: BoxDecoration(
-                                      color: Colors.white.withValues(alpha: 0.02),
-                                      border: Border.all(color: Colors.white.withValues(alpha: 0.06)),
-                                      borderRadius: BorderRadius.circular(16),
-                                    ),
-                                    child: Column(
-                                      crossAxisAlignment: CrossAxisAlignment.start,
-                                      children: [
-                                        const Row(
+                                );
+
+                                final learningsContainer = Container(
+                                  padding: const EdgeInsets.all(24),
+                                  decoration: BoxDecoration(
+                                    color: Colors.white.withValues(alpha: 0.02),
+                                    border: Border.all(color: Colors.white.withValues(alpha: 0.06)),
+                                    borderRadius: BorderRadius.circular(16),
+                                  ),
+                                  child: Column(
+                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                    children: [
+                                      const Row(
+                                        children: [
+                                          Icon(Icons.lightbulb_outline, color: Colors.amber, size: 20),
+                                          SizedBox(width: 8),
+                                          Text('O que aprendi', style: TextStyle(color: Colors.white, fontSize: 16, fontWeight: FontWeight.w600)),
+                                        ],
+                                      ),
+                                      const SizedBox(height: 16),
+                                      ...currentProject.learnings.asMap().entries.map((entry) => Padding(
+                                        padding: const EdgeInsets.only(bottom: 12),
+                                        child: Row(
+                                          crossAxisAlignment: CrossAxisAlignment.start,
                                           children: [
-                                            Icon(Icons.lightbulb_outline, color: Colors.amber, size: 20),
-                                            SizedBox(width: 8),
-                                            Text('O que aprendi', style: TextStyle(color: Colors.white, fontSize: 16, fontWeight: FontWeight.w600)),
+                                            Text('${entry.key + 1}.'.padLeft(3, '0'), style: const TextStyle(color: Colors.amber, fontWeight: FontWeight.bold, fontSize: 14)),
+                                            const SizedBox(width: 12),
+                                            Expanded(child: Text(entry.value, style: const TextStyle(color: Colors.white54, fontSize: 14))),
                                           ],
                                         ),
-                                        const SizedBox(height: 16),
-                                        ...currentProject.learnings.asMap().entries.map((entry) => Padding(
-                                          padding: const EdgeInsets.only(bottom: 12),
-                                          child: Row(
-                                            crossAxisAlignment: CrossAxisAlignment.start,
-                                            children: [
-                                              Text('${entry.key + 1}.'.padLeft(3, '0'), style: const TextStyle(color: Colors.amber, fontWeight: FontWeight.bold, fontSize: 14)),
-                                              const SizedBox(width: 12),
-                                              Expanded(child: Text(entry.value, style: const TextStyle(color: Colors.white54, fontSize: 14))),
-                                            ],
-                                          ),
-                                        )),
-                                      ],
-                                    ),
+                                      )),
+                                    ],
                                   ),
-                                ),
-                              ],
+                                );
+
+                                if (isMobile) {
+                                  return Column(
+                                    crossAxisAlignment: CrossAxisAlignment.stretch,
+                                    children: [
+                                      featuresContainer,
+                                      const SizedBox(height: 24),
+                                      learningsContainer,
+                                    ],
+                                  );
+                                }
+
+                                return Row(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Expanded(child: featuresContainer),
+                                    const SizedBox(width: 24),
+                                    Expanded(child: learningsContainer),
+                                  ],
+                                );
+                              },
                             ),
                           ],
                         ),
