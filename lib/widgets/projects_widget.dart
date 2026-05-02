@@ -611,7 +611,7 @@ class _ProjectCardState extends State<_ProjectCard> {
               ),
 
               Container(
-                height: 200,
+                height: MediaQuery.of(context).size.width < 700 ? null : 200,
                 padding: const EdgeInsets.all(20),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
