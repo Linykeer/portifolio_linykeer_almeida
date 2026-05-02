@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:url_launcher/url_launcher.dart';
 import '../utils/app_colors.dart';
 
-// Definindo a classe do Projeto
 class Project {
   final int id;
   final String title;
@@ -221,6 +221,40 @@ final List<Project> portfolioProjects = [
     year: '2025',
     color: const Color(0xFF3B82F6),
   ),
+  Project(
+    id: 6,
+    title: 'Landing Page Agendeline',
+    category: 'Web',
+    tags: ['Flutter Web', 'Dart', 'Figma', 'UI/UX'],
+    image: 'assets/landing-agendeline/0.png',
+    gallery: [
+      'assets/landing-agendeline/0.png',
+      'assets/landing-agendeline/1.png',
+      'assets/landing-agendeline/2.png',
+      'assets/landing-agendeline/3.png',
+      'assets/landing-agendeline/4.png',
+      'assets/landing-agendeline/5.png',
+      'assets/landing-agendeline/6.png',
+    ],
+    description: 'Landing page do aplicativo Agendeline, desenvolvida totalmente com Flutter Web.',
+    longDescription: 'Página de conversão e apresentação do aplicativo Agendeline. O projeto foi desenvolvido com foco em performance e responsividade utilizando Flutter Web. O objetivo é demonstrar as funcionalidades do SaaS, planos de assinatura e facilitar o direcionamento dos usuários para as lojas de aplicativos.',
+    features: [
+      'Site institucional responsivo (Mobile, Tablet, Desktop)',
+      'Animações dinâmicas e interativas com Flutter',
+      'Redirecionamento dinâmico para App Store e Google Play',
+      'Seção de planos e FAQ para conversão de leads',
+    ],
+    learnings: [
+      'Domínio completo de layout responsivo avançado',
+      'Otimizações de rendering para aplicações web',
+      'Fidelidade visual extrema a partir do protótipo no Figma',
+    ],
+    role: 'Frontend Web Developer',
+    duration: '2 semanas',
+    year: '2025',
+    color: const Color(0xFF06B6D4),
+    live: 'https://www.agendeline.com.br',
+  ),
 ];
 
 class ProjectsWidget extends StatefulWidget {
@@ -279,7 +313,7 @@ class _ProjectsWidgetState extends State<ProjectsWidget> {
       width: double.infinity,
       color: AppColors.background,
       padding: EdgeInsets.symmetric(
-        vertical: 80,
+        vertical: isMobile ? 32 : 50,
         horizontal: paddingHorizontal,
       ),
       child: Column(
@@ -576,7 +610,8 @@ class _ProjectCardState extends State<_ProjectCard> {
                 ),
               ),
 
-              Padding(
+              Container(
+                height: 200,
                 padding: const EdgeInsets.all(20),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -634,10 +669,6 @@ class _ProjectCardState extends State<_ProjectCard> {
     ),);
   }
 }
-
-// ─────────────────────────────────────────────────────────
-// Full-Screen Project Detail
-// ─────────────────────────────────────────────────────────
 
 class _ProjectDetailDialog extends StatefulWidget {
   final Project initialProject;
@@ -757,7 +788,7 @@ class _ProjectDetailDialogState extends State<_ProjectDetailDialog> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       SizedBox(
-                        height: 500,
+                        height: 400,
                         width: double.infinity,
                         child: Stack(
                           children: [
@@ -910,7 +941,7 @@ class _ProjectDetailDialogState extends State<_ProjectDetailDialog> {
                                     children: [
                                       if (currentProject.github.isNotEmpty)
                                         OutlinedButton.icon(
-                                          onPressed: () {},
+                                          onPressed: () => launchUrl(Uri.parse(currentProject.github)),
                                           icon: const Icon(Icons.code, size: 16),
                                           label: const Text('GitHub'),
                                           style: OutlinedButton.styleFrom(
@@ -921,7 +952,7 @@ class _ProjectDetailDialogState extends State<_ProjectDetailDialog> {
                                       const SizedBox(width: 12),
                                       if (currentProject.live.isNotEmpty)
                                         ElevatedButton.icon(
-                                          onPressed: () {},
+                                          onPressed: () => launchUrl(Uri.parse(currentProject.live)),
                                           icon: const Icon(Icons.open_in_new, size: 16),
                                           label: const Text('Ver ao vivo'),
                                           style: ElevatedButton.styleFrom(

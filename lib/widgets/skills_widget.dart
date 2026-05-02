@@ -1,24 +1,41 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
+import 'package:visibility_detector/visibility_detector.dart';
 import '../utils/app_colors.dart';
 
-class SkillsWidget extends StatelessWidget {
+class SkillsWidget extends StatefulWidget {
   const SkillsWidget({super.key});
+
+  @override
+  State<SkillsWidget> createState() => _SkillsWidgetState();
+}
+
+class _SkillsWidgetState extends State<SkillsWidget> {
+  bool _isVisible = false;
 
   @override
   Widget build(BuildContext context) {
     final isMobile = MediaQuery.of(context).size.width < 1024;
     final paddingHorizontal = isMobile ? 24.0 : 120.0;
 
-    return Container(
-      width: double.infinity,
-      color: AppColors.background,
-      padding: EdgeInsets.symmetric(
-        vertical: 80,
-        horizontal: paddingHorizontal,
-      ),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
+    return VisibilityDetector(
+      key: const Key('skills-section'),
+      onVisibilityChanged: (info) {
+        if (info.visibleFraction > 0.1 && !_isVisible) {
+          setState(() {
+            _isVisible = true;
+          });
+        }
+      },
+      child: Container(
+        width: double.infinity,
+        color: AppColors.background,
+        padding: EdgeInsets.symmetric(
+          vertical: isMobile ? 32 : 50,
+          horizontal: paddingHorizontal,
+        ),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           const Text(
             'HABILIDADES',
@@ -44,6 +61,8 @@ class SkillsWidget extends StatelessWidget {
             Column(children: [
               _buildSkillGroup('Frontend', _frontendSkills),
               const SizedBox(height: 48),
+              _buildSkillGroup('Backend', _backendSkills),
+              const SizedBox(height: 48),
               _buildSkillGroup('Ferramentas', _toolSkills),
             ])
           else
@@ -51,7 +70,9 @@ class SkillsWidget extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Expanded(child: _buildSkillGroup('Frontend', _frontendSkills)),
-                const SizedBox(width: 80),
+                const SizedBox(width: 40),
+                Expanded(child: _buildSkillGroup('Backend', _backendSkills)),
+                const SizedBox(width: 40),
                 Expanded(child: _buildSkillGroup('Ferramentas', _toolSkills)),
               ],
             ),
@@ -65,21 +86,27 @@ class SkillsWidget extends StatelessWidget {
               .slideY(begin: 0.05, end: 0, duration: 600.ms, delay: 300.ms),
         ],
       ),
-    );
+    ));
   }
 
   static final _frontendSkills = [
     _SkillItem('Dart / Flutter', 90, const Color(0xFF8B5CF6), const Color(0xFF6366F1)),
     _SkillItem('MobX / BloC / GetX', 75, const Color(0xFF6366F1), const Color(0xFF3B82F6)),
     _SkillItem('React / TypeScript', 50, const Color(0xFF3B82F6), const Color(0xFF06B6D4)),
-    _SkillItem('Firebase / Supabase', 70, const Color(0xFF06B6D4), const Color(0xFF10B981)),
+    _SkillItem('Modular', 90, const Color(0xFFF59E0B), const Color(0xFFEF4444)),
+  ];
+
+  static final _backendSkills = [
+    _SkillItem('Firebase', 70, const Color(0xFF06B6D4), const Color(0xFF10B981)),
+    _SkillItem('Supabase', 60, const Color(0xFF10B981), const Color(0xFF34D399)),
+    _SkillItem('Next.js', 50, const Color(0xFF34D399), const Color(0xFFFBBF24)),
+    _SkillItem('Hive / SQLite', 70, const Color(0xFF10B981), const Color(0xFF06B6D4)),
+
   ];
 
   static final _toolSkills = [
     _SkillItem('Figma / UI Design', 80, const Color(0xFF8B5CF6), const Color(0xFFEC4899)),
     _SkillItem('Git & GitHub', 70, const Color(0xFF3B82F6), const Color(0xFF6366F1)),
-    _SkillItem('Modular / Clean Arch.', 90, const Color(0xFFF59E0B), const Color(0xFFEF4444)),
-    _SkillItem('Hive / SQLite', 70, const Color(0xFF10B981), const Color(0xFF06B6D4)),
   ];
 
   Widget _buildSkillGroup(String title, List<_SkillItem> items) {
@@ -137,17 +164,25 @@ class SkillsWidget extends StatelessWidget {
                         ),
                       ),
                       LayoutBuilder(builder: (context, constraints) {
-                        return Container(
-                          height: 5,
-                          width: constraints.maxWidth * (item.percentage / 100),
-                          decoration: BoxDecoration(
-                            gradient: LinearGradient(
-                              colors: [item.colorStart, item.colorEnd],
-                              begin: Alignment.centerLeft,
-                              end: Alignment.centerRight,
-                            ),
-                            borderRadius: BorderRadius.circular(4),
-                          ),
+                        final targetWidth = constraints.maxWidth * (item.percentage / 100);
+                        return TweenAnimationBuilder<double>(
+                          tween: Tween<double>(begin: 0.0, end: _isVisible ? targetWidth : 0.0),
+                          duration: const Duration(milliseconds: 1500),
+                          curve: Curves.easeOutQuart,
+                          builder: (context, value, child) {
+                            return Container(
+                              height: 5,
+                              width: value,
+                              decoration: BoxDecoration(
+                                gradient: LinearGradient(
+                                  colors: [item.colorStart, item.colorEnd],
+                                  begin: Alignment.centerLeft,
+                                  end: Alignment.centerRight,
+                                ),
+                                borderRadius: BorderRadius.circular(4),
+                              ),
+                            );
+                          },
                         );
                       }),
                     ],

@@ -37,36 +37,41 @@ class _HeaderWidgetState extends State<HeaderWidget> {
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      RichText(
-                        text: const TextSpan(
-                          children: [
-                            TextSpan(
-                              text: '< ',
-                              style: TextStyle(
-                                color: Color(0xFF6366F1),
-                                fontSize: 16,
-                                fontWeight: FontWeight.w700,
-                                fontFamily: 'monospace',
+                      InkWell(
+                        onTap: () {
+                          widget.onNavigate('home');
+                        },
+                        child: RichText(
+                          text: const TextSpan(
+                            children: [
+                              TextSpan(
+                                text: '< ',
+                                style: TextStyle(
+                                  color: Color(0xFF6366F1),
+                                  fontSize: 16,
+                                  fontWeight: FontWeight.w700,
+                                  fontFamily: 'monospace',
+                                ),
                               ),
-                            ),
-                            TextSpan(
-                              text: 'Linykeer',
-                              style: TextStyle(
-                                color: Colors.white,
-                                fontSize: 16,
-                                fontWeight: FontWeight.w700,
+                              TextSpan(
+                                text: 'Linykeer',
+                                style: TextStyle(
+                                  color: Colors.white,
+                                  fontSize: 16,
+                                  fontWeight: FontWeight.w700,
+                                ),
                               ),
-                            ),
-                            TextSpan(
-                              text: ' />',
-                              style: TextStyle(
-                                color: Color(0xFF6366F1),
-                                fontSize: 16,
-                                fontWeight: FontWeight.w700,
-                                fontFamily: 'monospace',
+                              TextSpan(
+                                text: ' />',
+                                style: TextStyle(
+                                  color: Color(0xFF6366F1),
+                                  fontSize: 16,
+                                  fontWeight: FontWeight.w700,
+                                  fontFamily: 'monospace',
+                                ),
                               ),
-                            ),
-                          ],
+                            ],
+                          ),
                         ),
                       ),
 
@@ -78,6 +83,8 @@ class _HeaderWidgetState extends State<HeaderWidget> {
                             _buildNavItem('Sobre', 'about'),
                             const SizedBox(width: 4),
                             _buildNavItem('Projetos', 'projects'),
+                            const SizedBox(width: 4),
+                            _buildNavItem('Experiência', 'experience'),
                             const SizedBox(width: 4),
                             _buildNavItem('Skills', 'skills'),
                             const SizedBox(width: 4),
@@ -113,6 +120,7 @@ class _HeaderWidgetState extends State<HeaderWidget> {
                       _buildMobileNavItem('Início', 'home'),
                       _buildMobileNavItem('Sobre', 'about'),
                       _buildMobileNavItem('Projetos', 'projects'),
+                      _buildMobileNavItem('Experiência', 'experience'),
                       _buildMobileNavItem('Skills', 'skills'),
                       _buildMobileNavItem('Contato', 'footer'),
                     ],

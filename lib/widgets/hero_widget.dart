@@ -23,24 +23,38 @@ class HeroWidgetModern extends StatelessWidget {
           Positioned(
             top: 200,
             right: isTablet ? -60 : 80,
-            child: Container(
-              width: isTablet ? 260 : 380,
-              height: isTablet ? 260 : 380,
-              decoration: BoxDecoration(
-                color: Colors.blue.withValues(alpha: 0.07),
-                shape: BoxShape.circle,
+            child: RepaintBoundary(
+              child: Container(
+                width: isTablet ? 260 : 380,
+                height: isTablet ? 260 : 380,
+                decoration: BoxDecoration(
+                  shape: BoxShape.circle,
+                  gradient: RadialGradient(
+                    colors: [
+                      const Color(0xFF6366F1).withValues(alpha: 0.4),
+                      const Color(0xFF6366F1).withValues(alpha: 0.0),
+                    ],
+                  ),
+                ),
               ),
             ),
           ),
           Positioned(
             bottom: 200,
             left: isTablet ? -60 : 80,
-            child: Container(
-              width: isTablet ? 260 : 380,
-              height: isTablet ? 260 : 380,
-              decoration: BoxDecoration(
-                color: Colors.purple.withValues(alpha: 0.07),
-                shape: BoxShape.circle,
+            child: RepaintBoundary(
+              child: Container(
+                width: isTablet ? 260 : 380,
+                height: isTablet ? 260 : 380,
+                decoration: BoxDecoration(
+                  shape: BoxShape.circle,
+                  gradient: RadialGradient(
+                    colors: [
+                      const Color(0xFF8B5CF6).withValues(alpha: 0.4),
+                      const Color(0xFF8B5CF6).withValues(alpha: 0.0),
+                    ],
+                  ),
+                ),
               ),
             ),
           ),
@@ -72,14 +86,14 @@ class HeroWidgetModern extends StatelessWidget {
             child: Padding(
               padding: const EdgeInsets.only(top: 150),
               child: _buildTextContent(context),
-            ).animate().fadeIn(duration: 700.ms).slideX(begin: -0.05, end: 0, duration: 700.ms),
+            ),
           ),
           const SizedBox(width: 48),
           Expanded(
             child: SizedBox(
               height: 650,
               child: _buildProfileVisual(context, 500.0),
-            ).animate().fadeIn(duration: 700.ms, delay: 150.ms).slideX(begin: 0.05, end: 0, duration: 700.ms, delay: 150.ms),
+            ),
           ),
         ],
       ),
@@ -92,23 +106,17 @@ class HeroWidgetModern extends StatelessWidget {
       children: [
         Padding(
           padding: const EdgeInsets.only(top: 32),
-          child: _buildTextContent(context)
-              .animate()
-              .fadeIn(duration: 700.ms)
-              .slideY(begin: 0.05, end: 0, duration: 700.ms),
+          child: _buildTextContent(context),
         ),
         const SizedBox(height: 24),
         SizedBox(
           height: 320,
-          child: _buildProfileVisual(context, 300.0)
-              .animate()
-              .fadeIn(duration: 700.ms, delay: 150.ms)
-              .slideY(begin: -0.05, end: 0, duration: 700.ms, delay: 150.ms),
+          child: _buildProfileVisual(context, 300.0),
         ),
         const SizedBox(height: 24),
         Padding(
           padding: const EdgeInsets.only(bottom: 40),
-          child: _ButtonsContact(callback: callback),
+          child: _ButtonsContact(callback: callback).animate().fadeIn(delay: 600.ms).slideY(begin: 0.1, end: 0, duration: 500.ms),
         ),
       ],
     );
@@ -146,23 +154,7 @@ class HeroWidgetModern extends StatelessWidget {
           ),
         ).animate().fadeIn(delay: 200.ms),
         const SizedBox(height: 24),
-        Text.rich(
-          const TextSpan(
-            children: [
-              TextSpan(text: 'Oi, eu sou '),
-              TextSpan(
-                text: 'Linykeer',
-                style: TextStyle(color: Color(0xFF8B5CF6)),
-              ),
-            ],
-          ),
-          style: TextStyle(
-            fontSize: isMobile ? 36 : 56,
-            fontWeight: FontWeight.w800,
-            color: Colors.white,
-            height: 1.1,
-          ),
-        ).animate().fadeIn(delay: 300.ms).slideY(begin: 0.05, end: 0, delay: 300.ms),
+        _buildAnimatedTitle(isMobile),
         const SizedBox(height: 20),
         Text(
           isMobile
@@ -171,7 +163,7 @@ class HeroWidgetModern extends StatelessWidget {
           style: TextStyle(color: Colors.white60, fontSize: isMobile ? 15 : 18, height: 1.6),
         ).animate().fadeIn(delay: 500.ms),
         SizedBox(height: isMobile ? 32 : 48),
-        if (!isMobile)  _ButtonsContact(callback: callback ),
+        if (!isMobile)  _ButtonsContact(callback: callback ).animate().fadeIn(delay: 600.ms).slideX(begin: -0.05, end: 0, duration: 500.ms),
         if (!isMobile) const SizedBox(height: 40),
       ],
     );
@@ -224,11 +216,12 @@ class HeroWidgetModern extends StatelessWidget {
                   if (wasSynchronouslyLoaded || frame != null) {
                     return AnimatedOpacity(
                       opacity: 1.0,
-                      duration: const Duration(milliseconds: 400),
+                      duration: const Duration(milliseconds: 600),
+                      curve: Curves.easeOut,
                       child: child,
                     );
                   }
-                  // Placeholder enquanto decodifica — evita layout shift
+                  // Placeholder enquanto decodifica
                   return const SizedBox.expand();
                 },
                 errorBuilder: (context, error, stackTrace) {
@@ -356,6 +349,40 @@ class HeroWidgetModern extends StatelessWidget {
             ],
           ),
         ],
+      ),
+    );
+  }
+
+  Widget _buildAnimatedTitle(bool isMobile) {
+    return TweenAnimationBuilder<double>(
+      tween: Tween<double>(begin: 0.0, end: 1.0),
+      duration: const Duration(milliseconds: 1500),
+      curve: Curves.easeOut,
+      builder: (context, value, child) {
+        return ClipRect(
+          child: Align(
+            alignment: Alignment.centerLeft,
+            widthFactor: value,
+            child: child,
+          ),
+        );
+      },
+      child: Text.rich(
+        const TextSpan(
+          children: [
+            TextSpan(text: 'Oi, eu sou '),
+            TextSpan(
+              text: 'Linykeer',
+              style: TextStyle(color: Color(0xFF8B5CF6)),
+            ),
+          ],
+        ),
+        style: TextStyle(
+          fontSize: isMobile ? 36 : 56,
+          fontWeight: FontWeight.w800,
+          color: Colors.white,
+          height: 1.1,
+        ),
       ),
     );
   }

@@ -14,7 +14,7 @@ class AboutWidget extends StatelessWidget {
       width: double.infinity,
       color: AppColors.background,
       padding: EdgeInsets.symmetric(
-        vertical: isMobile ? 48 : 80,
+        vertical: isMobile ? 32 : 50,
         horizontal: paddingHorizontal,
       ),
       child: Column(
@@ -49,7 +49,7 @@ class AboutWidget extends StatelessWidget {
         const SizedBox(width: 48),
         Expanded(
           flex: 7,
-          child: _buildContentSection()
+          child: _buildContentSection(context)
               .animate()
               .fadeIn(duration: 800.ms, delay: 150.ms)
               .slideX(begin: 0.05, end: 0, duration: 800.ms, delay: 150.ms),
@@ -66,7 +66,7 @@ class AboutWidget extends StatelessWidget {
             .fadeIn(duration: 800.ms)
             .slideY(begin: 0.05, end: 0, duration: 800.ms),
         const SizedBox(height: 48),
-        _buildContentSection()
+        _buildContentSection(context)
             .animate()
             .fadeIn(duration: 800.ms, delay: 200.ms)
             .slideY(begin: 0.05, end: 0, duration: 800.ms, delay: 200.ms),
@@ -140,7 +140,7 @@ class AboutWidget extends StatelessWidget {
     );
   }
 
-  Widget _buildContentSection() {
+  Widget _buildContentSection(BuildContext context) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [

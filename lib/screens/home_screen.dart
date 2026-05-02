@@ -9,6 +9,7 @@ import '../widgets/header_widget.dart';
 import '../widgets/hero_widget.dart';
 import '../widgets/projects_widget.dart';
 import '../widgets/skills_widget.dart';
+import '../widgets/experience_widget.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -23,14 +24,27 @@ class _HomeScreenState extends State<HomeScreen> {
   final GlobalKey aboutKey = GlobalKey();
   final GlobalKey skillsKey = GlobalKey();
   final GlobalKey projectsKey = GlobalKey();
+  final GlobalKey experienceKey = GlobalKey();
   final GlobalKey footerKey = GlobalKey();
   bool _isInitialized = false;
+  bool _showLowerSections = false;
+
+  @override
+  void initState() {
+    super.initState();
+    Future.delayed(const Duration(milliseconds: 2000), () {
+      if (mounted) {
+        setState(() {
+          _showLowerSections = true;
+        });
+      }
+    });
+  }
 
   @override
   void didChangeDependencies() {
     super.didChangeDependencies();
     if (!_isInitialized) {
-      // Pre-cache main images to avoid pop-in/lag
       precacheImage(const AssetImage('assets/image.jpeg'), context);
       precacheImage(const AssetImage('assets/image.jpg'), context);
       _isInitialized = true;
@@ -70,31 +84,24 @@ class _HomeScreenState extends State<HomeScreen> {
             controller: _scrollController,
             child: Column(
               children: [
-                RepaintBoundary(
-                  child: Container(
-                    key: homeKey,
-                    child: HeroWidgetModern(
-                      callback: () => scrollToSection(projectsKey),
-                    ),
+                Container(
+                  key: homeKey,
+                  child: HeroWidgetModern(
+                    callback: () => scrollToSection(projectsKey),
                   ),
                 ),
-                RepaintBoundary(
-                  child: Container(key: aboutKey, child: const AboutWidget()),
-                ),
-                RepaintBoundary(
-                  child: Container(key: projectsKey, child: const ProjectsWidget()),
-                ),
-                RepaintBoundary(
-                  child: Container(key: skillsKey, child: const SkillsWidget()),
-                ),
-                RepaintBoundary(
-                  child: Container(
+                if (_showLowerSections) ...[
+                  Container(key: aboutKey, child: const AboutWidget()),
+                  Container(key: experienceKey, child: const ExperienceWidget()),
+                  Container(key: projectsKey, child: const ProjectsWidget()),
+                  Container(key: skillsKey, child: const SkillsWidget()),
+                  Container(
                     key: footerKey,
                     child: FooterWidget(
                       onNavigate: (section) => _navigate(section),
                     ),
                   ),
-                ),
+                ],
               ],
             ),
           ),
@@ -122,6 +129,9 @@ class _HomeScreenState extends State<HomeScreen> {
         break;
       case 'projects':
         scrollToSection(projectsKey);
+        break;
+      case 'experience':
+        scrollToSection(experienceKey);
         break;
       case 'skills':
         scrollToSection(skillsKey);

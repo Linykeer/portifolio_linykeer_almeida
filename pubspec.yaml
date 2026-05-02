@@ -42,6 +42,7 @@ dependencies:
   lucide_icons: ^0.257.0
   flutter_animate: ^4.0.0
   marquee: ^2.3.0 
+  visibility_detector: ^0.4.0+2
 
 dev_dependencies:
   flutter_test:
@@ -73,6 +74,7 @@ flutter:
     - assets/colab_campo/
     - assets/epoh/
     - assets/agendeline/
+    - assets/landing-agendeline/
   #   - images/a_dot_ham.jpeg
 
   # An image asset can refer to one or more resolution-specific "variants", see

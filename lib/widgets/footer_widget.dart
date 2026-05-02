@@ -16,7 +16,7 @@ class FooterWidget extends StatelessWidget {
     return Container(
       width: double.infinity,
       color: AppColors.background,
-      padding: EdgeInsets.symmetric(vertical: 80, horizontal: paddingHorizontal),
+      padding: EdgeInsets.symmetric(vertical: isMobile ? 32 : 50, horizontal: paddingHorizontal),
       child: Column(
         children: [
           const Text(
