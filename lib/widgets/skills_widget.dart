@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:visibility_detector/visibility_detector.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import '../utils/app_colors.dart';
 
 class SkillsWidget extends StatefulWidget {
@@ -195,57 +196,140 @@ class _SkillsWidgetState extends State<SkillsWidget> {
   }
 
   Widget _buildAllTechsBox(bool isMobile) {
-    final tags = [
-      'Dart', 'Flutter', 'MobX', 'BloC', 'Provider', 'GetX', 'Modular',
-      'Atomic Design', 'Clean Architecture', 'React', 'TypeScript',
-      'Firebase', 'Supabase', 'REST APIs', 'Hive', 'SQLite',
-      'Git', 'GitHub', 'Figma', 'Nest.js',
-      'Publicação App Store', 'Publicação Google Play',
+    final List<Map<String, dynamic>> tags = [
+      {'name': 'Dart', 'icon': FontAwesomeIcons.code},
+      {'name': 'Flutter', 'icon': FontAwesomeIcons.mobileScreen},
+      {'name': 'MobX', 'icon': Icons.sync},
+      {'name': 'BloC', 'icon': Icons.layers},
+      {'name': 'Provider', 'icon': Icons.account_tree},
+      {'name': 'GetX', 'icon': Icons.rocket_launch},
+      {'name': 'Modular', 'icon': Icons.view_module},
+      {'name': 'Atomic Design', 'icon': Icons.science},
+      {'name': 'Clean Architecture', 'icon': Icons.architecture},
+      {'name': 'React', 'icon': FontAwesomeIcons.react},
+      {'name': 'TypeScript', 'icon': FontAwesomeIcons.terminal},
+      {'name': 'Firebase', 'icon': FontAwesomeIcons.fire},
+      {'name': 'Supabase', 'icon': Icons.bolt},
+      {'name': 'REST APIs', 'icon': Icons.api},
+      {'name': 'Hive', 'icon': Icons.storage},
+      {'name': 'SQLite', 'icon': Icons.storage},
+      {'name': 'Git', 'icon': FontAwesomeIcons.gitAlt},
+      {'name': 'GitHub', 'icon': FontAwesomeIcons.github},
+      {'name': 'Figma', 'icon': FontAwesomeIcons.figma},
+      {'name': 'Nest.js', 'icon': Icons.api_outlined},
+      {'name': 'Publicação App Store', 'icon': FontAwesomeIcons.apple},
+      {'name': 'Publicação Google Play', 'icon': FontAwesomeIcons.googlePlay},
     ];
 
     return Container(
       width: double.infinity,
-      padding: EdgeInsets.all(isMobile ? 20 : 32),
+      padding: EdgeInsets.all(isMobile ? 24 : 40),
       decoration: BoxDecoration(
         color: AppColors.surface,
-        borderRadius: BorderRadius.circular(16),
-        border: Border.all(color: Colors.white.withValues(alpha: 0.06)),
+        borderRadius: BorderRadius.circular(24),
+        border: Border.all(color: Colors.white.withValues(alpha: 0.08)),
+        boxShadow: [
+          BoxShadow(
+            color: Colors.black.withValues(alpha: 0.2),
+            blurRadius: 30,
+            offset: const Offset(0, 15),
+          ),
+        ],
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          const Text(
-            'TODAS AS TECNOLOGIAS',
-            style: TextStyle(
-              fontSize: 11,
-              fontWeight: FontWeight.w700,
-              letterSpacing: 2,
-              color: Color(0xFF64748B),
-            ),
+          Row(
+            children: [
+              Container(
+                padding: const EdgeInsets.all(8),
+                decoration: BoxDecoration(
+                  color: const Color(0xFF6366F1).withValues(alpha: 0.1),
+                  borderRadius: BorderRadius.circular(10),
+                ),
+                child: const Icon(Icons.grid_view_rounded, color: Color(0xFF6366F1), size: 18),
+              ),
+              const SizedBox(width: 14),
+              const Text(
+                'TODAS AS TECNOLOGIAS',
+                style: TextStyle(
+                  fontSize: 12,
+                  fontWeight: FontWeight.w800,
+                  letterSpacing: 2,
+                  color: Color(0xFF94A3B8),
+                ),
+              ),
+            ],
           ),
-          const SizedBox(height: 20),
+          const SizedBox(height: 32),
           Wrap(
-            spacing: 10,
-            runSpacing: 10,
+            spacing: 12,
+            runSpacing: 12,
             children: tags
-                .map((tag) => Container(
-                      padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 7),
-                      decoration: BoxDecoration(
-                        color: AppColors.background,
-                        borderRadius: BorderRadius.circular(6),
-                        border: Border.all(color: Colors.white.withValues(alpha: 0.07)),
-                      ),
-                      child: Text(
-                        tag,
-                        style: const TextStyle(
-                          color: Color(0xFFCBD5E1),
-                          fontSize: 13,
-                        ),
-                      ),
-                    ))
+                .map((tag) => _TechTag(tag: tag))
                 .toList(),
           ),
         ],
+      ),
+    );
+  }
+}
+
+class _TechTag extends StatefulWidget {
+  final Map<String, dynamic> tag;
+  const _TechTag({required this.tag});
+
+  @override
+  State<_TechTag> createState() => _TechTagState();
+}
+
+class _TechTagState extends State<_TechTag> {
+  bool _isHovered = false;
+
+  @override
+  Widget build(BuildContext context) {
+    return MouseRegion(
+      onEnter: (_) => setState(() => _isHovered = true),
+      onExit: (_) => setState(() => _isHovered = false),
+      child: AnimatedContainer(
+        duration: const Duration(milliseconds: 200),
+        padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
+        decoration: BoxDecoration(
+          color: _isHovered ? const Color(0xFF1E1E2E) : AppColors.background,
+          borderRadius: BorderRadius.circular(12),
+          border: Border.all(
+            color: _isHovered 
+                ? const Color(0xFF6366F1).withValues(alpha: 0.5) 
+                : Colors.white.withValues(alpha: 0.08),
+            width: 1.2,
+          ),
+          boxShadow: _isHovered ? [
+            BoxShadow(
+              color: const Color(0xFF6366F1).withValues(alpha: 0.15),
+              blurRadius: 15,
+              spreadRadius: 2,
+            )
+          ] : [],
+        ),
+        child: Row(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Icon(
+              widget.tag['icon'],
+              size: 15,
+              color: _isHovered ? const Color(0xFF818CF8) : const Color(0xFF64748B),
+            ),
+            const SizedBox(width: 10),
+            Text(
+              widget.tag['name'],
+              style: TextStyle(
+                color: _isHovered ? Colors.white : const Color(0xFFCBD5E1),
+                fontSize: 13,
+                fontWeight: _isHovered ? FontWeight.w600 : FontWeight.w400,
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }

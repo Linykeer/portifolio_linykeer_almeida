@@ -99,7 +99,7 @@ class ExperienceWidget extends StatelessWidget {
           const SizedBox(height: 16),
           Row(
             children: [
-              Expanded(child: _buildStatCard('15+', 'Projetos')),
+              Expanded(child: _buildStatCard('15+', 'Projetos trabalhados')),
             ],
           ),
         ],
@@ -112,7 +112,7 @@ class ExperienceWidget extends StatelessWidget {
         const SizedBox(width: 24),
         Expanded(child: _buildStatCard('4', 'Empresas')),
         const SizedBox(width: 24),
-        Expanded(child: _buildStatCard('15+', 'Projetos')),
+        Expanded(child: _buildStatCard('15+', 'Projetos trabalhados')),
      
       ],
     );

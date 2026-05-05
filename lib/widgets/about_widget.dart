@@ -144,7 +144,7 @@ class AboutWidget extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         const Text(
-          'Desenvolvedor Mobile com 4 anos de experiência, especializado em Flutter e Dart. '
+          'Desenvolvedor Mobile com mais de 5 anos de experiência, especializado em Flutter e Dart. '
           'Trabalho com gerenciamento de estado avançado (MobX, BloC, Provider, GetX, Modular) '
           'e persistência local (Hive, SQLite). Transformo conceitos visuais em interfaces '
           'de alta fidelidade com performance fluida, garantindo uma experiência de usuário '

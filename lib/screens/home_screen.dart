@@ -88,13 +88,14 @@ class _HomeScreenState extends State<HomeScreen> {
                   key: homeKey,
                   child: HeroWidgetModern(
                     callback: () => scrollToSection(projectsKey),
+                    onContactClick: () => scrollToSection(footerKey),
                   ),
                 ),
                 if (_showLowerSections) ...[
                   Container(key: aboutKey, child: const AboutWidget()),
+                  Container(key: skillsKey, child: const SkillsWidget()),
                   Container(key: experienceKey, child: const ExperienceWidget()),
                   Container(key: projectsKey, child: const ProjectsWidget()),
-                  Container(key: skillsKey, child: const SkillsWidget()),
                   Container(
                     key: footerKey,
                     child: FooterWidget(

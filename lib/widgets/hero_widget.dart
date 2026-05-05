@@ -5,7 +5,8 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 class HeroWidgetModern extends StatelessWidget {
   final VoidCallback? callback;
-  const HeroWidgetModern({super.key, required this.callback});
+  final VoidCallback? onContactClick;
+  const HeroWidgetModern({super.key, required this.callback, this.onContactClick});
 
   @override
   Widget build(BuildContext context) {
@@ -116,7 +117,7 @@ class HeroWidgetModern extends StatelessWidget {
         const SizedBox(height: 24),
         Padding(
           padding: const EdgeInsets.only(bottom: 32),
-          child: _ButtonsContact(callback: callback).animate().fadeIn(delay: 600.ms).slideY(begin: 0.1, end: 0, duration: 500.ms),
+          child: _ButtonsContact(callback: callback, onContactClick: onContactClick).animate().fadeIn(delay: 600.ms).slideY(begin: 0.1, end: 0, duration: 500.ms),
         ),
       ],
     );
@@ -159,11 +160,11 @@ class HeroWidgetModern extends StatelessWidget {
         Text(
           isMobile
               ? 'Especialista em desenvolvimento Flutter, focado em criar apps de alta performance e design premium. Transformo visões em experiências fluidas e escaláveis.'
-              : 'Especialista em desenvolvimento Flutter, focado em criar aplicativos de alta\nperformance e design premium. Transformo visões em experiências\nmóveis fluidas, escaláveis e publicadas nas lojas.',
+              : 'Especialista em desenvolvimento Flutter, focado em criar aplicativos de alta performance e design premium. Transformo visões em experiências móveis fluidas, escaláveis e publicadas nas lojas.',
           style: TextStyle(color: Colors.white60, fontSize: isMobile ? 15 : 18, height: 1.6),
         ).animate().fadeIn(delay: 500.ms),
         SizedBox(height: isMobile ? 32 : 48),
-        if (!isMobile)  _ButtonsContact(callback: callback ).animate().fadeIn(delay: 600.ms).slideX(begin: -0.05, end: 0, duration: 500.ms),
+        if (!isMobile)  _ButtonsContact(callback: callback, onContactClick: onContactClick ).animate().fadeIn(delay: 600.ms).slideX(begin: -0.05, end: 0, duration: 500.ms),
         if (!isMobile) const SizedBox(height: 40),
       ],
     );
@@ -390,7 +391,8 @@ class HeroWidgetModern extends StatelessWidget {
 
 class _ButtonsContact extends StatelessWidget {
   final VoidCallback? callback;
-  const _ButtonsContact({required this.callback});
+  final VoidCallback? onContactClick;
+  const _ButtonsContact({required this.callback, this.onContactClick});
 
   @override
   Widget build(BuildContext context) {
@@ -418,7 +420,7 @@ class _ButtonsContact extends StatelessWidget {
               ),
             ),
             OutlinedButton(
-              onPressed: () async {
+              onPressed: onContactClick ?? () async {
                 final Uri emailUri = Uri(
                   scheme: 'mailto',
                   path: 'linykeeralmeida@gmail.com',
@@ -447,7 +449,7 @@ class _ButtonsContact extends StatelessWidget {
           children: [
             _buildSocialIcon(FontAwesomeIcons.github, 'https://github.com/linykeer'),
             const SizedBox(width: 12),
-            _buildSocialIcon(FontAwesomeIcons.linkedinIn, 'www.linkedin.com/in/linykeeralmeida'),
+             _buildSocialIcon(FontAwesomeIcons.linkedinIn, 'https://www.linkedin.com/in/linykeeralmeida/'),
             const SizedBox(width: 12),
             _buildSocialIcon(FontAwesomeIcons.envelope, 'mailto:linykeeralmeida@gmail.com'),
            
