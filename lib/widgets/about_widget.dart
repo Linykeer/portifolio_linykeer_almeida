@@ -82,7 +82,7 @@ class AboutWidget extends StatelessWidget {
           borderRadius: BorderRadius.circular(12),
           child: Container(
             color: AppColors.surface,
-            height: 500,
+            height: 580,
             child: Image.asset(
               'assets/image.jpg',
               fit: BoxFit.fitHeight,
