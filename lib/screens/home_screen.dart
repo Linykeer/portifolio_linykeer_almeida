@@ -27,19 +27,6 @@ class _HomeScreenState extends State<HomeScreen> {
   final GlobalKey experienceKey = GlobalKey();
   final GlobalKey footerKey = GlobalKey();
   bool _isInitialized = false;
-  bool _showLowerSections = false;
-
-  @override
-  void initState() {
-    super.initState();
-    Future.delayed(const Duration(milliseconds: 2000), () {
-      if (mounted) {
-        setState(() {
-          _showLowerSections = true;
-        });
-      }
-    });
-  }
 
   @override
   void didChangeDependencies() {
@@ -84,25 +71,23 @@ class _HomeScreenState extends State<HomeScreen> {
             controller: _scrollController,
             child: Column(
               children: [
-                Container(
+                RepaintBoundary(
                   key: homeKey,
                   child: HeroWidgetModern(
                     callback: () => scrollToSection(projectsKey),
                     onContactClick: () => scrollToSection(footerKey),
                   ),
                 ),
-                if (_showLowerSections) ...[
-                  Container(key: aboutKey, child: const AboutWidget()),
-                  Container(key: skillsKey, child: const SkillsWidget()),
-                  Container(key: experienceKey, child: const ExperienceWidget()),
-                  Container(key: projectsKey, child: const ProjectsWidget()),
-                  Container(
-                    key: footerKey,
-                    child: FooterWidget(
-                      onNavigate: (section) => _navigate(section),
-                    ),
+                RepaintBoundary(key: aboutKey, child: const AboutWidget()),
+                RepaintBoundary(key: skillsKey, child: const SkillsWidget()),
+                RepaintBoundary(key: experienceKey, child: const ExperienceWidget()),
+                RepaintBoundary(key: projectsKey, child: const ProjectsWidget()),
+                RepaintBoundary(
+                  key: footerKey,
+                  child: FooterWidget(
+                    onNavigate: (section) => _navigate(section),
                   ),
-                ],
+                ),
               ],
             ),
           ),
