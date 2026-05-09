@@ -14,7 +14,7 @@ class AboutWidget extends StatelessWidget {
       width: double.infinity,
       color: AppColors.background,
       padding: EdgeInsets.symmetric(
-        vertical: isMobile ? 32 : 50,
+        vertical: isMobile ? 16 : 50,
         horizontal: paddingHorizontal,
       ),
       child: Column(
@@ -61,11 +61,6 @@ class AboutWidget extends StatelessWidget {
   Widget _buildMobileLayout(BuildContext context) {
     return Column(
       children: [
-        _buildImageSection()
-            .animate()
-            .fadeIn(duration: 800.ms)
-            .slideY(begin: 0.05, end: 0, duration: 800.ms),
-        const SizedBox(height: 48),
         _buildContentSection(context)
             .animate()
             .fadeIn(duration: 800.ms, delay: 200.ms)

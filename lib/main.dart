@@ -16,14 +16,7 @@ class PortfolioApp extends StatefulWidget {
 }
 
 class _PortfolioAppState extends State<PortfolioApp> {
-  @override
-  void didChangeDependencies() {
-    super.didChangeDependencies();
-    // Pré-decodifica a imagem de perfil antes do Hero ser renderizado
-    // evitando o travamento (jank) na entrada da página
-    precacheImage(const AssetImage('assets/image.jpeg'), context);
-    precacheImage(const AssetImage('assets/image.jpg'), context);
-  }
+
 
   @override
   Widget build(BuildContext context) {

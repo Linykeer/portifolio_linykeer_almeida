@@ -26,15 +26,26 @@ class _HomeScreenState extends State<HomeScreen> {
   final GlobalKey projectsKey = GlobalKey();
   final GlobalKey experienceKey = GlobalKey();
   final GlobalKey footerKey = GlobalKey();
-  bool _isInitialized = false;
+  int _renderStep = 0;
 
   @override
-  void didChangeDependencies() {
-    super.didChangeDependencies();
-    if (!_isInitialized) {
-      precacheImage(const AssetImage('assets/image.jpeg'), context);
-      precacheImage(const AssetImage('assets/image.jpg'), context);
-      _isInitialized = true;
+  void initState() {
+    super.initState();
+    _startProgressiveRender();
+  }
+
+  void _startProgressiveRender() async {
+    // Dá 800ms de prioridade total para as animações do Hero finalizarem suavemente
+    // antes de começar a construir o restante do site.
+    await Future.delayed(const Duration(milliseconds: 800));
+    
+    for (int i = 1; i <= 5; i++) {
+      await Future.delayed(const Duration(milliseconds: 100));
+      if (mounted) {
+        setState(() {
+          _renderStep = i;
+        });
+      }
     }
   }
 
@@ -78,11 +89,11 @@ class _HomeScreenState extends State<HomeScreen> {
                     onContactClick: () => scrollToSection(footerKey),
                   ),
                 ),
-                RepaintBoundary(key: aboutKey, child: const AboutWidget()),
-                RepaintBoundary(key: skillsKey, child: const SkillsWidget()),
-                RepaintBoundary(key: experienceKey, child: const ExperienceWidget()),
-                RepaintBoundary(key: projectsKey, child: const ProjectsWidget()),
-                RepaintBoundary(
+                if (_renderStep >= 1) RepaintBoundary(key: aboutKey, child: const AboutWidget()),
+                if (_renderStep >= 2) RepaintBoundary(key: skillsKey, child: const SkillsWidget()),
+                if (_renderStep >= 3) RepaintBoundary(key: experienceKey, child: const ExperienceWidget()),
+                if (_renderStep >= 4) RepaintBoundary(key: projectsKey, child: const ProjectsWidget()),
+                if (_renderStep >= 5) RepaintBoundary(
                   key: footerKey,
                   child: FooterWidget(
                     onNavigate: (section) => _navigate(section),
@@ -130,6 +141,9 @@ class _HomeScreenState extends State<HomeScreen> {
 }
 
 class _DotGridPainter extends CustomPainter {
+  static List<Offset>? _cachedPoints;
+  static Size? _cachedSize;
+
   @override
   void paint(Canvas canvas, Size size) {
     final paint = Paint()
@@ -137,16 +151,20 @@ class _DotGridPainter extends CustomPainter {
       ..strokeWidth = 1.6
       ..strokeCap = StrokeCap.round;
 
-    const double spacing = 28.0;
-    final points = <Offset>[];
+    if (_cachedPoints == null || _cachedSize != size) {
+      const double spacing = 28.0;
+      final points = <Offset>[];
 
-    for (double x = 0; x < size.width; x += spacing) {
-      for (double y = 0; y < size.height * 0.65; y += spacing) {
-        points.add(Offset(x, y));
+      for (double x = 0; x < size.width; x += spacing) {
+        for (double y = 0; y < size.height * 0.65; y += spacing) {
+          points.add(Offset(x, y));
+        }
       }
+      _cachedPoints = points;
+      _cachedSize = size;
     }
 
-    canvas.drawPoints(PointMode.points, points, paint);
+    canvas.drawPoints(PointMode.points, _cachedPoints!, paint);
   }
 
   @override
