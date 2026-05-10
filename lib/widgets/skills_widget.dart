@@ -100,7 +100,7 @@ class _SkillsWidgetState extends State<SkillsWidget> {
   static final _backendSkills = [
     _SkillItem('Firebase', 70, const Color(0xFF06B6D4), const Color(0xFF10B981)),
     _SkillItem('Supabase', 60, const Color(0xFF10B981), const Color(0xFF34D399)),
-    _SkillItem('Next.js', 50, const Color(0xFF34D399), const Color(0xFFFBBF24)),
+    _SkillItem('Nest', 50, const Color(0xFF34D399), const Color(0xFFFBBF24)),
     _SkillItem('Hive / SQLite', 70, const Color(0xFF10B981), const Color(0xFF06B6D4)),
 
   ];
